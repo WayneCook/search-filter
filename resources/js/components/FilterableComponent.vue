@@ -34,12 +34,24 @@
           </tr>
         </tbody>
       </table>
-    </div><!-- Table -->
     <div class="changePageSection">
       <div><button class="btn btn-secondary btn-sm" @click="prevPage">Previous</button></div>
       <div><button class="btn btn-secondary btn-sm" @click="nextPage">Next</button></div>
       <div><small> Showing {{collection.from}} - {{collection.to}} of {{collection.total}} entries.</small></div>
+      <div class="perPageSelect">
+        <div class="form-group form-inline">
+          <small for="countSelect">Show per page</small>
+          <select class="form-control form-control-sm countSelect" name='countSelect' @change='fetch()' v-model='query.limit'>
+            <option value="10">10</option>
+            <option value="15">15</option>
+            <option value="25">25</option>
+            <option value="50">50</option>
+            <option value="100">100</option>
+          </select>
+        </div>
+      </div>
     </div>
+  </div><!-- Table -->
   </div>
 </template>
 
@@ -168,13 +180,6 @@ h4 {
   font-size: 14px;
 }
 
-.changePageSection {
-  margin-top: 10px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-}
-
 .changePageSection div {
   margin-right: 5px;
 }
@@ -188,6 +193,24 @@ h4 {
 .form-row div {
   margin-right: 5px;
 }
+
+
+.changePageSection {
+  margin-top: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.changePageSection div:nth-child(3) {
+  flex:1;
+}
+
+.countSelect {
+
+  margin-left: 5px;
+}
+
+
 
 
 </style>

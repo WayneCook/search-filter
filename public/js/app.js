@@ -2030,6 +2030,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['fields'],
@@ -6823,7 +6835,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.profileImage[data-v-eaa836a0] {\n    width: 40px;\n}\nh4[data-v-eaa836a0] {\n  margin-bottom: 0px;\n  margin-left: 16px;\n}\n.match-options span[data-v-eaa836a0] {\n  margin: 5px;\n}\n.table-card[data-v-eaa836a0] {\n  padding: 20px;\n}\n.table th[data-v-eaa836a0] {\n  border-top: 0px;\n}\n.table tbody td[data-v-eaa836a0] {\n  color: rgb(99, 98, 98);\n  font-size: 14px;\n}\n.changePageSection[data-v-eaa836a0] {\n  margin-top: 10px;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n}\n.changePageSection div[data-v-eaa836a0] {\n  margin-right: 5px;\n}\n.form-row[data-v-eaa836a0] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n}\n.form-row div[data-v-eaa836a0] {\n  margin-right: 5px;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.profileImage[data-v-eaa836a0] {\n    width: 40px;\n}\nh4[data-v-eaa836a0] {\n  margin-bottom: 0px;\n  margin-left: 16px;\n}\n.match-options span[data-v-eaa836a0] {\n  margin: 5px;\n}\n.table-card[data-v-eaa836a0] {\n  padding: 20px;\n}\n.table th[data-v-eaa836a0] {\n  border-top: 0px;\n}\n.table tbody td[data-v-eaa836a0] {\n  color: rgb(99, 98, 98);\n  font-size: 14px;\n}\n.changePageSection div[data-v-eaa836a0] {\n  margin-right: 5px;\n}\n.form-row[data-v-eaa836a0] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n}\n.form-row div[data-v-eaa836a0] {\n  margin-right: 5px;\n}\n.changePageSection[data-v-eaa836a0] {\n  margin-top: 10px;\n  display: flex;\n  justify-content: space-between;\n}\n.changePageSection div[data-v-eaa836a0]:nth-child(3) {\n  flex:1;\n}\n.countSelect[data-v-eaa836a0] {\n\n  margin-left: 5px;\n}\n\n\n\n\n", ""]);
 
 // exports
 
@@ -38677,43 +38689,102 @@ var render = function() {
           }),
           0
         )
-      ])
-    ]),
-    _vm._v(" "),
-    _c("div", { staticClass: "changePageSection" }, [
-      _c("div", [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-secondary btn-sm",
-            on: { click: _vm.prevPage }
-          },
-          [_vm._v("Previous")]
-        )
       ]),
       _vm._v(" "),
-      _c("div", [
-        _c(
-          "button",
-          {
-            staticClass: "btn btn-secondary btn-sm",
-            on: { click: _vm.nextPage }
-          },
-          [_vm._v("Next")]
-        )
-      ]),
-      _vm._v(" "),
-      _c("div", [
-        _c("small", [
-          _vm._v(
-            " Showing " +
-              _vm._s(_vm.collection.from) +
-              " - " +
-              _vm._s(_vm.collection.to) +
-              " of " +
-              _vm._s(_vm.collection.total) +
-              " entries."
+      _c("div", { staticClass: "changePageSection" }, [
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary btn-sm",
+              on: { click: _vm.prevPage }
+            },
+            [_vm._v("Previous")]
           )
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c(
+            "button",
+            {
+              staticClass: "btn btn-secondary btn-sm",
+              on: { click: _vm.nextPage }
+            },
+            [_vm._v("Next")]
+          )
+        ]),
+        _vm._v(" "),
+        _c("div", [
+          _c("small", [
+            _vm._v(
+              " Showing " +
+                _vm._s(_vm.collection.from) +
+                " - " +
+                _vm._s(_vm.collection.to) +
+                " of " +
+                _vm._s(_vm.collection.total) +
+                " entries."
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "perPageSelect" }, [
+          _c("div", { staticClass: "form-group form-inline" }, [
+            _c("small", { attrs: { for: "countSelect" } }, [
+              _vm._v("Show per page")
+            ]),
+            _vm._v(" "),
+            _c(
+              "select",
+              {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.query.limit,
+                    expression: "query.limit"
+                  }
+                ],
+                staticClass: "form-control form-control-sm countSelect",
+                attrs: { name: "countSelect" },
+                on: {
+                  change: [
+                    function($event) {
+                      var $$selectedVal = Array.prototype.filter
+                        .call($event.target.options, function(o) {
+                          return o.selected
+                        })
+                        .map(function(o) {
+                          var val = "_value" in o ? o._value : o.value
+                          return val
+                        })
+                      _vm.$set(
+                        _vm.query,
+                        "limit",
+                        $event.target.multiple
+                          ? $$selectedVal
+                          : $$selectedVal[0]
+                      )
+                    },
+                    function($event) {
+                      return _vm.fetch()
+                    }
+                  ]
+                }
+              },
+              [
+                _c("option", { attrs: { value: "10" } }, [_vm._v("10")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "15" } }, [_vm._v("15")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "25" } }, [_vm._v("25")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "50" } }, [_vm._v("50")]),
+                _vm._v(" "),
+                _c("option", { attrs: { value: "100" } }, [_vm._v("100")])
+              ]
+            )
+          ])
         ])
       ])
     ])
