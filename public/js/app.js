@@ -2030,22 +2030,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['fields'],
@@ -2054,12 +2038,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      data: '',
       loading: false,
       url: 'api/customers',
       filterCandidates: [],
-      pageNumber: 0,
-      size: 10,
       query: {
         order_column: 'first_name',
         order_direction: 'asc',
@@ -2077,18 +2058,23 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.fetch();
     },
     nextPage: function nextPage() {
-      this.query.page++;
-      this.fetch();
+      if (this.collection.next_page_url) {
+        this.query.page = Number(this.query.page) + 1;
+        this.fetch();
+      }
     },
     prevPage: function prevPage() {
-      this.query.page--;
-      this.fetch();
+      if (this.collection.prev_page_url) {
+        this.query.page = Number(this.query.page) - 1;
+        this.fetch();
+      }
     },
     addFilter: function addFilter() {
       this.filterCandidates.push({
         column: '',
         operator: '',
-        value_1: ''
+        value_1: '',
+        value_2: ''
       });
     },
     fetch: function fetch() {
@@ -2102,8 +2088,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get(this.url, {
         params: params
       }).then(function (res) {
-        _this.query.page = res.data.collection.current_page;
-        _this.collection.data = res.data.collection.data;
+        Vue.set(_this.$data, 'collection', res.data.collection);
+        _this.query.current_page = res.data.collection.current_page;
       })["catch"](function (error) {})["finally"](function () {
         _this.loading = false;
       });
@@ -2117,6 +2103,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           f["f[".concat(i, "][column]")] = filter.column.name;
           f["f[".concat(i, "][operator]")] = filter.operator.name;
           f["f[".concat(i, "][value_1]")] = filter.value_1;
+          f["f[".concat(i, "][value_2]")] = filter.value_2;
           f["f[".concat(i, "][match]")] = _this2.match;
         } else {
           return [];
@@ -2127,12 +2114,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     pageCount: function pageCount() {
-      var l = this.data.length,
-          s = this.size;
+      var l = this.query.total_records,
+          s = this.query.limit;
       return Math.ceil(l / s);
-    },
-    computedPageNumber: function computedPageNumber() {
-      return this.data.length < 1 ? 0 : this.pageNumber + 1;
     }
   },
   mounted: function mounted() {
@@ -2141,8 +2125,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     });
     this.fetch();
     this.addFilter();
-  },
-  created: function created() {}
+  }
 });
 
 /***/ }),
@@ -6840,7 +6823,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.profileImage[data-v-eaa836a0] {\n    width: 40px;\n}\nh4[data-v-eaa836a0] {\n  margin-bottom: 0px;\n  margin-left: 16px;\n}\n.match-options span[data-v-eaa836a0] {\n  margin: 5px;\n}\n.table-card[data-v-eaa836a0] {\n  padding: 20px;\n}\n.table th[data-v-eaa836a0] {\n  border-top: 0px;\n}\n.table tbody td[data-v-eaa836a0] {\n  color: rgb(99, 98, 98);\n  font-size: 14px;\n}\n\n\n", ""]);
+exports.push([module.i, "\n.profileImage[data-v-eaa836a0] {\n    width: 40px;\n}\nh4[data-v-eaa836a0] {\n  margin-bottom: 0px;\n  margin-left: 16px;\n}\n.match-options span[data-v-eaa836a0] {\n  margin: 5px;\n}\n.table-card[data-v-eaa836a0] {\n  padding: 20px;\n}\n.table th[data-v-eaa836a0] {\n  border-top: 0px;\n}\n.table tbody td[data-v-eaa836a0] {\n  color: rgb(99, 98, 98);\n  font-size: 14px;\n}\n.changePageSection[data-v-eaa836a0] {\n  margin-top: 10px;\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n}\n.changePageSection div[data-v-eaa836a0] {\n  margin-right: 5px;\n}\n.form-row[data-v-eaa836a0] {\n  display: flex;\n  flex-direction: row;\n  justify-content: flex-start;\n}\n.form-row div[data-v-eaa836a0] {\n  margin-right: 5px;\n}\n\n\n", ""]);
 
 // exports
 
@@ -38641,7 +38624,7 @@ var render = function() {
           }),
           _vm._v(" "),
           _c("div", { staticClass: "form-row" }, [
-            _c("div", { staticClass: "col-auto" }, [
+            _c("div", [
               _c(
                 "button",
                 {
@@ -38652,7 +38635,7 @@ var render = function() {
               )
             ]),
             _vm._v(" "),
-            _c("div", { staticClass: "col-auto" }, [
+            _c("div", [
               _c(
                 "button",
                 {
@@ -38697,19 +38680,43 @@ var render = function() {
       ])
     ]),
     _vm._v(" "),
-    _c(
-      "button",
-      { staticClass: "btn btn-secondary btn-sm", on: { click: _vm.prevPage } },
-      [_vm._v("Previous")]
-    ),
-    _vm._v(" "),
-    _c(
-      "button",
-      { staticClass: "btn btn-secondary btn-sm", on: { click: _vm.nextPage } },
-      [_vm._v("Next")]
-    ),
-    _vm._v(" "),
-    _c("br")
+    _c("div", { staticClass: "changePageSection" }, [
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary btn-sm",
+            on: { click: _vm.prevPage }
+          },
+          [_vm._v("Previous")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c(
+          "button",
+          {
+            staticClass: "btn btn-secondary btn-sm",
+            on: { click: _vm.nextPage }
+          },
+          [_vm._v("Next")]
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", [
+        _c("small", [
+          _vm._v(
+            " Showing " +
+              _vm._s(_vm.collection.from) +
+              " - " +
+              _vm._s(_vm.collection.to) +
+              " of " +
+              _vm._s(_vm.collection.total) +
+              " entries."
+          )
+        ])
+      ])
+    ])
   ])
 }
 var staticRenderFns = []
