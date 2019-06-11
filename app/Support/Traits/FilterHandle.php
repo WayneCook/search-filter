@@ -20,18 +20,17 @@ trait FilterHandle {
     {
 
         $v = validator()->make($data, [
-            // 'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
-            // 'order_direction' => 'sometimes|required|in:asc,desc',
-            //
-            // 'limit' => 'sometimes|required|integer|min:1',
-            //
-            // // advanced filter
-            // 'filter_match' => 'sometimes|required|in:and,or',
-            // 'f' => 'sometimes|required|array',
-            // 'f.*.column' => 'required|in:'.$this->whiteListColumns(),
-            // 'f.*.operator' => 'required_with:f.*.column|in:'.$this->allowedOperators(),
-            // 'f.*.query_1' => 'required',
-            // 'f.*.query_2' => 'required_if:f.*.operator,between,not_between'
+            'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
+            'order_direction' => 'sometimes|required|in:asc,desc',
+            'limit' => 'sometimes|required|integer|min:1',
+
+            // advanced filter
+            'match' => 'sometimes|required|in:any,all',
+            'f' => 'sometimes|required|array',
+            'f.*.column' => 'required|in:'.$this->whiteListColumns(),
+            'f.*.operator' => 'required_with:f.*.column|in:'.$this->allowedOperators(),
+            'f.*.value_1' => 'required',
+            'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
         ]);
 
         if($v->fails()) {

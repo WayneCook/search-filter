@@ -1763,13 +1763,6 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
 //
 //
 //
@@ -1833,27 +1826,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.filter.operator = operator;
         }
       });
-      console.log(this.filter.operator);
     },
     deleteFilter: function deleteFilter() {
       this.$parent.$emit('delete-Filter', this.index);
-    },
-    fetch: function fetch() {
-      var _this3 = this;
-
-      this.loading = true;
-      var filters = this.getFilters();
-
-      var params = _objectSpread({}, filters, this.query);
-
-      axios.get(this.url, {
-        params: params
-      }).then(function (res) {
-        Vue.set(_this3.$data, 'collection', res.data.collection);
-        _this3.query.page = res.data.collection.current_page;
-      })["catch"](function (error) {})["finally"](function () {
-        _this3.loading = false;
-      });
     },
     availableOperators: function availableOperators() {
       return [{
@@ -1941,30 +1916,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     getOperators: function getOperators() {
-      var _this4 = this;
+      var _this3 = this;
 
       return this.availableOperators().filter(function (eachOperator) {
-        return eachOperator['parent'].includes(_this4.filter.column.type);
+        return eachOperator['parent'].includes(_this3.filter.column.type);
       });
-    },
-    fetchOperators: function fetchOperators() {
-      var _this5 = this;
-
-      return function (f) {
-        return _this5.availableOperators().filter(function (operator) {
-          if (f.column && operator.parent.includes(f.column.type)) {
-            return operator;
-          }
-        });
-      };
-    }
-  },
-  watch: {
-    filter: {
-      immediate: false,
-      deep: true,
-      handler: function handler(newValue, oldValue) {// console.log('changed');
-      }
     }
   }
 });
@@ -2151,13 +2107,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
-//
-//
-//
 //
 //
 //
@@ -2221,27 +2170,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           _this2.filter.operator = operator;
         }
       });
-      console.log(this.filter.operator);
     },
     deleteFilter: function deleteFilter() {
       this.$parent.$emit('delete-Filter', this.index);
-    },
-    fetch: function fetch() {
-      var _this3 = this;
-
-      this.loading = true;
-      var filters = this.getFilters();
-
-      var params = _objectSpread({}, filters, this.query);
-
-      axios.get(this.url, {
-        params: params
-      }).then(function (res) {
-        Vue.set(_this3.$data, 'collection', res.data.collection);
-        _this3.query.page = res.data.collection.current_page;
-      })["catch"](function (error) {})["finally"](function () {
-        _this3.loading = false;
-      });
     },
     availableOperators: function availableOperators() {
       return [{
@@ -2329,30 +2260,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   computed: {
     getOperators: function getOperators() {
-      var _this4 = this;
+      var _this3 = this;
 
       return this.availableOperators().filter(function (eachOperator) {
-        return eachOperator['parent'].includes(_this4.filter.column.type);
+        return eachOperator['parent'].includes(_this3.filter.column.type);
       });
-    },
-    fetchOperators: function fetchOperators() {
-      var _this5 = this;
-
-      return function (f) {
-        return _this5.availableOperators().filter(function (operator) {
-          if (f.column && operator.parent.includes(f.column.type)) {
-            return operator;
-          }
-        });
-      };
-    }
-  },
-  watch: {
-    filter: {
-      immediate: false,
-      deep: true,
-      handler: function handler(newValue, oldValue) {// console.log('changed');
-      }
     }
   }
 });
@@ -6816,7 +6728,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.far.fa-times-circle[data-v-4246277c] {\r\n    font-size: 13px;\r\n    color: #f44336;\r\n    margin-right: 8px;\r\n    margin-right: 8px;\r\n    margin-top: 7px;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-4246277c] {\r\n  font-size: 13px;\r\n  color: #f44336;\r\n  margin-right: 8px;\r\n  margin-right: 8px;\r\n  margin-top: 7px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -6854,7 +6766,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.far.fa-times-circle[data-v-1a075022] {\r\n    font-size: 13px;\r\n    color: #f44336;\r\n    margin-right: 8px;\r\n    margin-right: 8px;\r\n    margin-top: 7px;\n}\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-1a075022] {\r\n  font-size: 13px;\r\n  color: #f44336;\r\n  margin-right: 8px;\r\n  margin-right: 8px;\r\n  margin-top: 7px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -38448,7 +38360,7 @@ var render = function() {
               _vm._v(" "),
               _vm._l(_vm.getOperators, function(operator) {
                 return _c("option", { domProps: { value: operator.name } }, [
-                  _vm._v(_vm._s(operator.title) + "\n        ")
+                  _vm._v(_vm._s(operator.title) + "\n          ")
                 ])
               })
             ],
@@ -38488,8 +38400,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.filter.operator.name === "between",
-              expression: 'filter.operator.name === "between"'
+              value: _vm.filter.operator.component === "double",
+              expression: 'filter.operator.component === "double"'
             }
           ],
           staticClass: "col"
@@ -38528,7 +38440,7 @@ var render = function() {
             }
           }
         },
-        [_c("i", { staticClass: "far fa-times-circle" })]
+        [_c("i", { staticClass: "fas fa-times" })]
       )
     ])
   ])
@@ -38859,7 +38771,7 @@ var render = function() {
               _vm._v(" "),
               _vm._l(_vm.getOperators, function(operator) {
                 return _c("option", { domProps: { value: operator.name } }, [
-                  _vm._v(_vm._s(operator.title) + "\n        ")
+                  _vm._v(_vm._s(operator.title) + "\n          ")
                 ])
               })
             ],
@@ -38899,8 +38811,8 @@ var render = function() {
             {
               name: "show",
               rawName: "v-show",
-              value: _vm.filter.operator.name === "between",
-              expression: 'filter.operator.name === "between"'
+              value: _vm.filter.operator.component === "double",
+              expression: 'filter.operator.component === "double"'
             }
           ],
           staticClass: "col"
@@ -38939,7 +38851,7 @@ var render = function() {
             }
           }
         },
-        [_c("i", { staticClass: "far fa-times-circle" })]
+        [_c("i", { staticClass: "fas fa-times" })]
       )
     ])
   ])

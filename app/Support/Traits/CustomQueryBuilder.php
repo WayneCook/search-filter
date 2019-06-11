@@ -44,7 +44,24 @@ class CustomQueryBuilder {
         return $this->query->{$this->match}($this->filter['column'], '=', $this->filter['value_1']);
     }
 
-    
+    public function between()
+    {
+        return $this->query->{$this->match.'Between'}($this->filter['column'], [$this->filter['value_1'], $this->filter['value_2']]);
+    }
 
+    public function notBetween()
+    {
+        return $this->query->{$this->match.'notBetween'}($this->filter['column'], [$this->filter['value_1'], $this->filter['value_2']]);
+    }
+
+    public function greaterThan()
+    {
+        return $this->query->{$this->match}($this->filter['column'], '>', $this->filter['value_1']);
+    }
+
+    public function lessThan()
+    {
+        return $this->query->{$this->match}($this->filter['column'], '<', $this->filter['value_1']);
+    }
 
 }
