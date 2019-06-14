@@ -1804,6 +1804,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['filter', 'fields', 'index', 'filterErrors'],
   data: function data() {
@@ -2123,6 +2137,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -6756,7 +6784,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.fas.fa-times[data-v-4246277c] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-4246277c] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n.is-invalid[data-v-4246277c] {\n\nbackground-image: none;\n}\n\n", ""]);
 
 // exports
 
@@ -6794,7 +6822,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.fas.fa-times[data-v-1a075022] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-1a075022] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n.is-invalid[data-v-1a075022] {\n\nbackground-image: none;\n}\n\n", ""]);
 
 // exports
 
@@ -38345,30 +38373,56 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control form-control-sm",
-              on: {
-                input: function($event) {
-                  return _vm.setColumn($event)
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { selected: "" } }, [_vm._v("search by")]),
-              _vm._v(" "),
-              _vm._l(this.fields, function(option) {
-                return _c("option", { domProps: { value: option.name } }, [
-                  _vm._v(_vm._s(option.title))
-                ])
-              })
-            ],
-            2
-          ),
+          _vm.filterErrors["f." + _vm.index + ".column"]
+            ? _c(
+                "select",
+                {
+                  staticClass: "is-invalid form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setColumn($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("search by")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(this.fields, function(option) {
+                    return _c("option", { domProps: { value: option.name } }, [
+                      _vm._v(_vm._s(option.title))
+                    ])
+                  })
+                ],
+                2
+              )
+            : _c(
+                "select",
+                {
+                  staticClass: "form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setColumn($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("search by")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(this.fields, function(option) {
+                    return _c("option", { domProps: { value: option.name } }, [
+                      _vm._v(_vm._s(option.title))
+                    ])
+                  })
+                ],
+                2
+              ),
           _vm._v(" "),
           _vm.filterErrors["f." + _vm.index + ".column"]
-            ? _c("small", [
+            ? _c("small", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.filterErrors["f." + _vm.index + ".column"][0])
                 )
@@ -38379,68 +38433,118 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control form-control-sm",
-              on: {
-                input: function($event) {
-                  return _vm.setOperator($event)
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { selected: "" } }, [
-                _vm._v("select option")
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.getOperators, function(operator) {
-                return _c("option", { domProps: { value: operator.name } }, [
-                  _vm._v(_vm._s(operator.title) + "\n          ")
-                ])
-              })
-            ],
-            2
-          ),
+          _vm.filterErrors["f." + _vm.index + ".operator"]
+            ? _c(
+                "select",
+                {
+                  staticClass: "is-invalid form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setOperator($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("select option")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.getOperators, function(operator) {
+                    return _c(
+                      "option",
+                      { domProps: { value: operator.name } },
+                      [_vm._v(_vm._s(operator.title) + "\n          ")]
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm.filterErrors["f." + _vm.index + ".operator"]
-            ? _c("small", [
+            ? _c("small", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.filterErrors["f." + _vm.index + ".operator"][0])
                 )
               ])
-            : _vm._e()
+            : _c(
+                "select",
+                {
+                  staticClass: "form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setOperator($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("select option")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.getOperators, function(operator) {
+                    return _c(
+                      "option",
+                      { domProps: { value: operator.name } },
+                      [_vm._v(_vm._s(operator.title) + "\n          ")]
+                    )
+                  })
+                ],
+                2
+              )
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.filter.value_1,
-              expression: "filter.value_1"
-            }
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: { type: "text", name: "keyword" },
-          domProps: { value: _vm.filter.value_1 },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _vm.filterErrors["f." + _vm.index + ".value_1"]
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter.value_1,
+                  expression: "filter.value_1"
+                }
+              ],
+              staticClass: "is-invalid form-control form-control-sm",
+              attrs: { type: "text", name: "keyword" },
+              domProps: { value: _vm.filter.value_1 },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filter, "value_1", $event.target.value)
+                }
               }
-              _vm.$set(_vm.filter, "value_1", $event.target.value)
-            }
-          }
-        }),
+            })
+          : _vm._e(),
         _vm._v(" "),
         _vm.filterErrors["f." + _vm.index + ".value_1"]
-          ? _c("small", [
+          ? _c("small", { staticClass: "invalid-feedback" }, [
               _vm._v(_vm._s(_vm.filterErrors["f." + _vm.index + ".value_1"][0]))
             ])
-          : _vm._e()
+          : _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter.value_1,
+                  expression: "filter.value_1"
+                }
+              ],
+              staticClass: " form-control form-control-sm",
+              attrs: { type: "text", name: "keyword" },
+              domProps: { value: _vm.filter.value_1 },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filter, "value_1", $event.target.value)
+                }
+              }
+            })
       ]),
       _vm._v(" "),
       _c(
@@ -38457,27 +38561,49 @@ var render = function() {
           staticClass: "col"
         },
         [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.filter.value_2,
-                expression: "filter.value_2"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "text", name: "keyword" },
-            domProps: { value: _vm.filter.value_2 },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _vm.filterErrors["f." + _vm.index + ".value_2"]
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.filter.value_2,
+                    expression: "filter.value_2"
+                  }
+                ],
+                staticClass: "invalid-input form-control form-control-sm",
+                attrs: { type: "text", name: "keyword" },
+                domProps: { value: _vm.filter.value_2 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.filter, "value_2", $event.target.value)
+                  }
                 }
-                _vm.$set(_vm.filter, "value_2", $event.target.value)
-              }
-            }
-          }),
+              })
+            : _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.filter.value_2,
+                    expression: "filter.value_2"
+                  }
+                ],
+                staticClass: "form-control form-control-sm",
+                attrs: { type: "text", name: "keyword" },
+                domProps: { value: _vm.filter.value_2 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.filter, "value_2", $event.target.value)
+                  }
+                }
+              }),
           _vm._v(" "),
           _vm.filterErrors["f." + _vm.index + ".value_2"]
             ? _c("small", { staticClass: "invalid-feedback" }, [
@@ -38791,30 +38917,56 @@ var render = function() {
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control form-control-sm",
-              on: {
-                input: function($event) {
-                  return _vm.setColumn($event)
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { selected: "" } }, [_vm._v("search by")]),
-              _vm._v(" "),
-              _vm._l(this.fields, function(option) {
-                return _c("option", { domProps: { value: option.name } }, [
-                  _vm._v(_vm._s(option.title))
-                ])
-              })
-            ],
-            2
-          ),
+          _vm.filterErrors["f." + _vm.index + ".column"]
+            ? _c(
+                "select",
+                {
+                  staticClass: "is-invalid form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setColumn($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("search by")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(this.fields, function(option) {
+                    return _c("option", { domProps: { value: option.name } }, [
+                      _vm._v(_vm._s(option.title))
+                    ])
+                  })
+                ],
+                2
+              )
+            : _c(
+                "select",
+                {
+                  staticClass: "form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setColumn($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("search by")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(this.fields, function(option) {
+                    return _c("option", { domProps: { value: option.name } }, [
+                      _vm._v(_vm._s(option.title))
+                    ])
+                  })
+                ],
+                2
+              ),
           _vm._v(" "),
           _vm.filterErrors["f." + _vm.index + ".column"]
-            ? _c("small", [
+            ? _c("small", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.filterErrors["f." + _vm.index + ".column"][0])
                 )
@@ -38825,68 +38977,118 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "col" }, [
         _c("div", { staticClass: "form-group" }, [
-          _c(
-            "select",
-            {
-              staticClass: "form-control form-control-sm",
-              on: {
-                input: function($event) {
-                  return _vm.setOperator($event)
-                }
-              }
-            },
-            [
-              _c("option", { attrs: { selected: "" } }, [
-                _vm._v("select option")
-              ]),
-              _vm._v(" "),
-              _vm._l(_vm.getOperators, function(operator) {
-                return _c("option", { domProps: { value: operator.name } }, [
-                  _vm._v(_vm._s(operator.title) + "\n          ")
-                ])
-              })
-            ],
-            2
-          ),
+          _vm.filterErrors["f." + _vm.index + ".operator"]
+            ? _c(
+                "select",
+                {
+                  staticClass: "is-invalid form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setOperator($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("select option")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.getOperators, function(operator) {
+                    return _c(
+                      "option",
+                      { domProps: { value: operator.name } },
+                      [_vm._v(_vm._s(operator.title) + "\n          ")]
+                    )
+                  })
+                ],
+                2
+              )
+            : _vm._e(),
           _vm._v(" "),
           _vm.filterErrors["f." + _vm.index + ".operator"]
-            ? _c("small", [
+            ? _c("small", { staticClass: "invalid-feedback" }, [
                 _vm._v(
                   _vm._s(_vm.filterErrors["f." + _vm.index + ".operator"][0])
                 )
               ])
-            : _vm._e()
+            : _c(
+                "select",
+                {
+                  staticClass: "form-control form-control-sm",
+                  on: {
+                    input: function($event) {
+                      return _vm.setOperator($event)
+                    }
+                  }
+                },
+                [
+                  _c("option", { attrs: { selected: "" } }, [
+                    _vm._v("select option")
+                  ]),
+                  _vm._v(" "),
+                  _vm._l(_vm.getOperators, function(operator) {
+                    return _c(
+                      "option",
+                      { domProps: { value: operator.name } },
+                      [_vm._v(_vm._s(operator.title) + "\n          ")]
+                    )
+                  })
+                ],
+                2
+              )
         ])
       ]),
       _vm._v(" "),
       _c("div", { staticClass: "col" }, [
-        _c("input", {
-          directives: [
-            {
-              name: "model",
-              rawName: "v-model",
-              value: _vm.filter.value_1,
-              expression: "filter.value_1"
-            }
-          ],
-          staticClass: "form-control form-control-sm",
-          attrs: { type: "text", name: "keyword" },
-          domProps: { value: _vm.filter.value_1 },
-          on: {
-            input: function($event) {
-              if ($event.target.composing) {
-                return
+        _vm.filterErrors["f." + _vm.index + ".value_1"]
+          ? _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter.value_1,
+                  expression: "filter.value_1"
+                }
+              ],
+              staticClass: "is-invalid form-control form-control-sm",
+              attrs: { type: "text", name: "keyword" },
+              domProps: { value: _vm.filter.value_1 },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filter, "value_1", $event.target.value)
+                }
               }
-              _vm.$set(_vm.filter, "value_1", $event.target.value)
-            }
-          }
-        }),
+            })
+          : _vm._e(),
         _vm._v(" "),
         _vm.filterErrors["f." + _vm.index + ".value_1"]
-          ? _c("small", [
+          ? _c("small", { staticClass: "invalid-feedback" }, [
               _vm._v(_vm._s(_vm.filterErrors["f." + _vm.index + ".value_1"][0]))
             ])
-          : _vm._e()
+          : _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.filter.value_1,
+                  expression: "filter.value_1"
+                }
+              ],
+              staticClass: " form-control form-control-sm",
+              attrs: { type: "text", name: "keyword" },
+              domProps: { value: _vm.filter.value_1 },
+              on: {
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.$set(_vm.filter, "value_1", $event.target.value)
+                }
+              }
+            })
       ]),
       _vm._v(" "),
       _c(
@@ -38903,27 +39105,49 @@ var render = function() {
           staticClass: "col"
         },
         [
-          _c("input", {
-            directives: [
-              {
-                name: "model",
-                rawName: "v-model",
-                value: _vm.filter.value_2,
-                expression: "filter.value_2"
-              }
-            ],
-            staticClass: "form-control form-control-sm",
-            attrs: { type: "text", name: "keyword" },
-            domProps: { value: _vm.filter.value_2 },
-            on: {
-              input: function($event) {
-                if ($event.target.composing) {
-                  return
+          _vm.filterErrors["f." + _vm.index + ".value_2"]
+            ? _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.filter.value_2,
+                    expression: "filter.value_2"
+                  }
+                ],
+                staticClass: "invalid-input form-control form-control-sm",
+                attrs: { type: "text", name: "keyword" },
+                domProps: { value: _vm.filter.value_2 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.filter, "value_2", $event.target.value)
+                  }
                 }
-                _vm.$set(_vm.filter, "value_2", $event.target.value)
-              }
-            }
-          }),
+              })
+            : _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.filter.value_2,
+                    expression: "filter.value_2"
+                  }
+                ],
+                staticClass: "form-control form-control-sm",
+                attrs: { type: "text", name: "keyword" },
+                domProps: { value: _vm.filter.value_2 },
+                on: {
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.$set(_vm.filter, "value_2", $event.target.value)
+                  }
+                }
+              }),
           _vm._v(" "),
           _vm.filterErrors["f." + _vm.index + ".value_2"]
             ? _c("small", { staticClass: "invalid-feedback" }, [

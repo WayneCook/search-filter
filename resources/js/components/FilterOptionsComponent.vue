@@ -3,16 +3,20 @@
     <div class="row">
       <div class="col">
         <div class="form-group">
-          <select class="form-control form-control-sm" @input='setColumn($event)'>
+          <select v-if='filterErrors[`f.${index}.column`]' class="is-invalid form-control form-control-sm" @input='setColumn($event)'>
+            <option selected>search by</option>
+            <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
+            </select>
+          <select v-else class="form-control form-control-sm" @input='setColumn($event)'>
           <option selected>search by</option>
           <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
           </select>
-          <small v-if='filterErrors[`f.${index}.column`]'>{{filterErrors[`f.${index}.column`][0]}}</small>
+          <small class='invalid-feedback' v-if='filterErrors[`f.${index}.column`]'>{{ filterErrors[`f.${index}.column`][0] }}</small>
         </div>
       </div>
       <div class="col">
         <div class="form-group">
-          <select class="form-control form-control-sm" @input='setOperator($event)'>
+          <select v-if='filterErrors[`f.${index}.operator`]' class="is-invalid form-control form-control-sm" @input='setOperator($event)'>
             <option selected>select option</option>
             <option
               v-for='operator in getOperators'
@@ -20,18 +24,28 @@
               >{{ operator.title }}
             </option>
           </select>
-          <small v-if='filterErrors[`f.${index}.operator`]'>{{filterErrors[`f.${index}.operator`][0]}}</small>
+          <small class='invalid-feedback' v-if='filterErrors[`f.${index}.operator`]'>{{ filterErrors[`f.${index}.operator`][0] }}</small>
+          <select v-else class="form-control form-control-sm" @input='setOperator($event)'>
+            <option selected>select option</option>
+            <option
+              v-for='operator in getOperators'
+              :value='operator.name'
+              >{{ operator.title }}
+            </option>
+          </select>
         </div>
       </div>
 
       <div class="col">
-        <input type="text" v-model="filter.value_1" name="keyword" class="form-control form-control-sm">
-        <small v-if='filterErrors[`f.${index}.value_1`]'>{{filterErrors[`f.${index}.value_1`][0]}}</small>
+        <input v-if='filterErrors[`f.${index}.value_1`]' type="text" v-model="filter.value_1" name="keyword" class="is-invalid form-control form-control-sm">
+        <small class='invalid-feedback' v-if='filterErrors[`f.${index}.value_1`]'>{{ filterErrors[`f.${index}.value_1`][0] }}</small>
+        <input v-else type="text" v-model="filter.value_1" name="keyword" class=" form-control form-control-sm">
       </div>
 
       <div class="col" v-show='filter.operator.component === "double"'>
-        <input type="text" v-model="filter.value_2" name="keyword" class="form-control form-control-sm">
-        <small class="invalid-feedback" v-if='filterErrors[`f.${index}.value_2`]'>{{filterErrors[`f.${index}.value_2`][0]}}</small>
+        <input v-if='filterErrors[`f.${index}.value_2`]' type="text" v-model="filter.value_2" name="keyword" class="invalid-input form-control form-control-sm">
+        <input v-else type="text" v-model="filter.value_2" name="keyword" class="form-control form-control-sm">
+        <small class="invalid-feedback" v-if='filterErrors[`f.${index}.value_2`]'>{{ filterErrors[`f.${index}.value_2`][0] }}</small>
       </div>
 
       <span @click='deleteFilter()'><i class="fas fa-times"></i></span>
@@ -138,6 +152,12 @@ export default {
     margin-right: 8px;
     margin-right: 8px;
     margin-top: 7px;
+  }
+
+  .is-invalid {
+
+  background-image: none;
+
   }
 
 </style>
