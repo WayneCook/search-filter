@@ -1802,8 +1802,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['filter', 'fields', 'index'],
+  props: ['filter', 'fields', 'index', 'filterErrors'],
   data: function data() {
     return {//
     };
@@ -2009,6 +2013,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       loading: false,
       url: 'api/customers',
       filterCandidates: [],
+      errors: {},
       query: {
         order_column: 'first_name',
         order_direction: 'asc',
@@ -2049,6 +2054,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var _this = this;
 
       this.loading = true;
+      this.errors = {};
       var filters = this.getFilters();
 
       var params = _objectSpread({}, filters, this.query);
@@ -2056,9 +2062,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get(this.url, {
         params: params
       }).then(function (res) {
+        // console.log(res);
         Vue.set(_this.$data, 'collection', res.data.collection);
         _this.query.current_page = res.data.collection.current_page;
-      })["catch"](function (error) {})["finally"](function () {
+      })["catch"](function (error) {
+        if (error.response) {
+          console.log(error.response.data.errors);
+          _this.errors = error.response.data.errors;
+        }
+      })["finally"](function () {
         _this.loading = false;
       });
     },
@@ -2067,15 +2079,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var f = {};
       this.filterCandidates.forEach(function (filter, i) {
-        if (filter.column.name && filter.operator.name && filter.value_1) {
-          f["f[".concat(i, "][column]")] = filter.column.name;
-          f["f[".concat(i, "][operator]")] = filter.operator.name;
-          f["f[".concat(i, "][value_1]")] = filter.value_1;
-          f["f[".concat(i, "][value_2]")] = filter.value_2;
-          f["f[".concat(i, "][match]")] = _this2.match;
-        } else {
-          return [];
-        }
+        f["f[".concat(i, "][column]")] = filter.column.name;
+        f["f[".concat(i, "][operator]")] = filter.operator.name;
+        f["f[".concat(i, "][value_1]")] = filter.value_1;
+        f["f[".concat(i, "][value_2]")] = filter.value_2;
+        f["f[".concat(i, "][match]")] = _this2.match;
       });
       return f;
     }
@@ -2146,8 +2154,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['filter', 'fields', 'index'],
+  props: ['filter', 'fields', 'index', 'filterErrors'],
   data: function data() {
     return {//
     };
@@ -6728,7 +6740,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.fas.fa-times[data-v-4246277c] {\r\n  font-size: 13px;\r\n  color: #f44336;\r\n  margin-right: 8px;\r\n  margin-right: 8px;\r\n  margin-top: 7px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-4246277c] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n\n", ""]);
 
 // exports
 
@@ -6766,7 +6778,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.fas.fa-times[data-v-1a075022] {\r\n  font-size: 13px;\r\n  color: #f44336;\r\n  margin-right: 8px;\r\n  margin-right: 8px;\r\n  margin-top: 7px;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-1a075022] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n\n", ""]);
 
 // exports
 
@@ -38337,7 +38349,15 @@ var render = function() {
               })
             ],
             2
-          )
+          ),
+          _vm._v(" "),
+          _vm.filterErrors["f." + _vm.index + ".column"]
+            ? _c("small", [
+                _vm._v(
+                  _vm._s(_vm.filterErrors["f." + _vm.index + ".column"][0])
+                )
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -38365,7 +38385,15 @@ var render = function() {
               })
             ],
             2
-          )
+          ),
+          _vm._v(" "),
+          _vm.filterErrors["f." + _vm.index + ".operator"]
+            ? _c("small", [
+                _vm._v(
+                  _vm._s(_vm.filterErrors["f." + _vm.index + ".operator"][0])
+                )
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -38390,7 +38418,13 @@ var render = function() {
               _vm.$set(_vm.filter, "value_1", $event.target.value)
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _vm.filterErrors["f." + _vm.index + ".value_1"]
+          ? _c("small", [
+              _vm._v(_vm._s(_vm.filterErrors["f." + _vm.index + ".value_1"][0]))
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -38427,7 +38461,15 @@ var render = function() {
                 _vm.$set(_vm.filter, "value_2", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.filterErrors["f." + _vm.index + ".value_2"]
+            ? _c("small", [
+                _vm._v(
+                  _vm._s(_vm.filterErrors["f." + _vm.index + ".value_2"][0])
+                )
+              ])
+            : _vm._e()
         ]
       ),
       _vm._v(" "),
@@ -38543,7 +38585,12 @@ var render = function() {
         [
           _vm._l(_vm.filterCandidates, function(f, i) {
             return _c("filter-option", {
-              attrs: { fields: _vm.fields, filter: f, index: i }
+              attrs: {
+                filterErrors: _vm.errors,
+                fields: _vm.fields,
+                filter: f,
+                index: i
+              }
             })
           }),
           _vm._v(" "),
@@ -38748,7 +38795,15 @@ var render = function() {
               })
             ],
             2
-          )
+          ),
+          _vm._v(" "),
+          _vm.filterErrors["f." + _vm.index + ".column"]
+            ? _c("small", [
+                _vm._v(
+                  _vm._s(_vm.filterErrors["f." + _vm.index + ".column"][0])
+                )
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -38776,7 +38831,15 @@ var render = function() {
               })
             ],
             2
-          )
+          ),
+          _vm._v(" "),
+          _vm.filterErrors["f." + _vm.index + ".operator"]
+            ? _c("small", [
+                _vm._v(
+                  _vm._s(_vm.filterErrors["f." + _vm.index + ".operator"][0])
+                )
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
@@ -38801,7 +38864,13 @@ var render = function() {
               _vm.$set(_vm.filter, "value_1", $event.target.value)
             }
           }
-        })
+        }),
+        _vm._v(" "),
+        _vm.filterErrors["f." + _vm.index + ".value_1"]
+          ? _c("small", [
+              _vm._v(_vm._s(_vm.filterErrors["f." + _vm.index + ".value_1"][0]))
+            ])
+          : _vm._e()
       ]),
       _vm._v(" "),
       _c(
@@ -38838,7 +38907,15 @@ var render = function() {
                 _vm.$set(_vm.filter, "value_2", $event.target.value)
               }
             }
-          })
+          }),
+          _vm._v(" "),
+          _vm.filterErrors["f." + _vm.index + ".value_2"]
+            ? _c("small", [
+                _vm._v(
+                  _vm._s(_vm.filterErrors["f." + _vm.index + ".value_2"][0])
+                )
+              ])
+            : _vm._e()
         ]
       ),
       _vm._v(" "),

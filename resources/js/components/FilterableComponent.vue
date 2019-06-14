@@ -17,7 +17,7 @@
         </div>
       </div> <!-- Card head -->
       <div class="card-body">
-      <filter-option :fields='fields' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
+      <filter-option :filterErrors='errors' :fields='fields' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
         <div class="form-row">
           <div><button class="btn btn-success btn-sm" @click='addFilter'>Add Filter</button></div>
           <div><button class="btn btn-primary btn-sm" @click='update'>Search</button></div>
@@ -67,6 +67,7 @@
         loading: false,
         url: 'api/customers',
         filterCandidates: [],
+        errors: {},
         query: {
           order_column: 'first_name',
           order_direction: 'asc',
@@ -106,17 +107,25 @@
        },
        fetch() {
         this.loading = true;
+        this.errors = {};
         const filters = this.getFilters();
         const params = { ...filters, ...this.query }
 
         axios.get(this.url, {params: params})
           .then((res) => {
 
-            Vue.set(this.$data, 'collection', res.data.collection)
+            // console.log(res);
+            Vue.set(this.$data, 'collection', res.data.collection);
             this.query.current_page = res.data.collection.current_page;
 
           })
-          .catch((error) => {})
+          .catch((error) => {
+
+            if (error.response) {
+              console.log(error.response.data.errors);
+              this.errors = error.response.data.errors;
+            }
+          })
           .finally(() => {
             this.loading = false
         })
@@ -125,14 +134,13 @@
           const f = {}
 
           this.filterCandidates.forEach((filter, i) => {
-            if (filter.column.name && filter.operator.name && filter.value_1) {
               f[`f[${i}][column]`] = filter.column.name
               f[`f[${i}][operator]`] = filter.operator.name
               f[`f[${i}][value_1]`] = filter.value_1
               f[`f[${i}][value_2]`] = filter.value_2
               f[`f[${i}][match]`] = this.match
-            }  else { return [] }
           })
+
         return f
       }
     },

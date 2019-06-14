@@ -7,9 +7,9 @@
           <option selected>search by</option>
           <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
           </select>
+          <small v-if='filterErrors[`f.${index}.column`]'>{{filterErrors[`f.${index}.column`][0]}}</small>
         </div>
       </div>
-
       <div class="col">
         <div class="form-group">
           <select class="form-control form-control-sm" @input='setOperator($event)'>
@@ -20,15 +20,19 @@
               >{{ operator.title }}
             </option>
           </select>
+          <small v-if='filterErrors[`f.${index}.operator`]'>{{filterErrors[`f.${index}.operator`][0]}}</small>
         </div>
       </div>
 
       <div class="col">
         <input type="text" v-model="filter.value_1" name="keyword" class="form-control form-control-sm">
+        <small v-if='filterErrors[`f.${index}.value_1`]'>{{filterErrors[`f.${index}.value_1`][0]}}</small>
       </div>
 
       <div class="col" v-show='filter.operator.component === "double"'>
         <input type="text" v-model="filter.value_2" name="keyword" class="form-control form-control-sm">
+        <small v-if='filterErrors[`f.${index}.value_2`]'>{{filterErrors[`f.${index}.value_2`][0]}}</small>
+
       </div>
 
       <span @click='deleteFilter()'><i class="fas fa-times"></i></span>
@@ -41,7 +45,7 @@
 
 export default {
 
-  props: ['filter', 'fields', 'index'],
+  props: ['filter', 'fields', 'index', 'filterErrors'],
   data() {
     return {
       //
@@ -95,18 +99,18 @@ export default {
         return (eachOperator['parent'].includes(this.filter.column.type))
       })
     }
-  }
+  },
 }
 </script>
 
 <style scoped>
 
-i.fas.fa-times {
-  font-size: 13px;
-  color: #f44336;
-  margin-right: 8px;
-  margin-right: 8px;
-  margin-top: 7px;
-}
+  i.fas.fa-times {
+    font-size: 13px;
+    color: #f44336;
+    margin-right: 8px;
+    margin-right: 8px;
+    margin-top: 7px;
+  }
 
 </style>
