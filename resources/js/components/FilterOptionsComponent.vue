@@ -31,14 +31,12 @@
 
       <div class="col" v-show='filter.operator.component === "double"'>
         <input type="text" v-model="filter.value_2" name="keyword" class="form-control form-control-sm">
-        <small v-if='filterErrors[`f.${index}.value_2`]'>{{filterErrors[`f.${index}.value_2`][0]}}</small>
-
+        <small class="invalid-feedback" v-if='filterErrors[`f.${index}.value_2`]'>{{filterErrors[`f.${index}.value_2`][0]}}</small>
       </div>
 
       <span @click='deleteFilter()'><i class="fas fa-times"></i></span>
     </div>
   </form>
-
 </template>
 
 <script>
@@ -48,7 +46,8 @@ export default {
   props: ['filter', 'fields', 'index', 'filterErrors'],
   data() {
     return {
-      //
+
+
     }
   },
   methods: {
@@ -68,6 +67,21 @@ export default {
     deleteFilter() {
       this.$parent.$emit('delete-Filter', this.index);
     },
+
+    errorCheck(inputCheck) {
+
+      if (this.filterErrors[`f.${this.index}.column`]) {
+        return true
+      } else {
+        return false
+      }
+      // this.errors.column = filterErrors[`f.${this.index}.column`][0];
+      // this.errors.value_1 = filterErrors[`f.${this.index}.value_1`][0];
+      // this.errors.value_2 = filterErrors[`f.${this.index}.value_2`][0];
+      // this.errors.operator = filterErrors[`f.${this.index}.operator`][0];
+
+    },
+
     availableOperators() {
       return [
           {title: 'contains', name: 'contains', parent: ['string'], component: 'single'},
@@ -98,7 +112,20 @@ export default {
       return this.availableOperators().filter((eachOperator) => {
         return (eachOperator['parent'].includes(this.filter.column.type))
       })
-    }
+    },
+    // errorCheck(inputCheck) {
+    //
+    //   if (this.filterErrors[`f.${this.index}.column`]) {
+    //     return true
+    //   } else {
+    //     return false
+    //   }
+    //   // this.errors.column = filterErrors[`f.${this.index}.column`][0];
+    //   // this.errors.value_1 = filterErrors[`f.${this.index}.value_1`][0];
+    //   // this.errors.value_2 = filterErrors[`f.${this.index}.value_2`][0];
+    //   // this.errors.operator = filterErrors[`f.${this.index}.operator`][0];
+    //
+    // },
   },
 }
 </script>
