@@ -13,12 +13,12 @@ class Customer extends Model
 
 
     protected $allowedFilters = [
-        'id' ,'first_name', 'last_name', 'oranization', 'email', 'phone_number', 'revenue',
+        'id' ,'first_name', 'last_name', 'organization', 'email', 'phone_number', 'revenue',
         'created_at', 'address'
     ];
 
     protected $orderable = [
-        'id', 'first_name', 'last_name', 'company', 'email', 'revenue',
+        'id', 'first_name', 'organization', 'last_name', 'company', 'email', 'revenue',
         'created_at'
     ];
 
@@ -29,10 +29,5 @@ class Customer extends Model
         [ 'title' => 'Organization', 'name' => 'organization', 'type' => 'string'],
         [ 'title' => 'Revenue', 'name' => 'revenue', 'type' => 'numeric'],
     );
-
-    public function getTableFields() :array
-    {
-        return $this->tableFields;
-    }
 
 }

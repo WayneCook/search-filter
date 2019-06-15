@@ -1815,14 +1815,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['filter', 'fields', 'index', 'filterErrors'],
-  data: function data() {
-    return {};
-  },
   methods: {
     setColumn: function setColumn(e) {
       var _this = this;
@@ -1844,17 +1838,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteFilter: function deleteFilter() {
       this.$parent.$emit('delete-Filter', this.index);
-    },
-    errorCheck: function errorCheck(inputCheck) {
-      if (this.filterErrors["f.".concat(this.index, ".column")]) {
-        return true;
-      } else {
-        return false;
-      } // this.errors.column = filterErrors[`f.${this.index}.column`][0];
-      // this.errors.value_1 = filterErrors[`f.${this.index}.value_1`][0];
-      // this.errors.value_2 = filterErrors[`f.${this.index}.value_2`][0];
-      // this.errors.operator = filterErrors[`f.${this.index}.operator`][0];
-
     },
     availableOperators: function availableOperators() {
       return [{
@@ -2189,14 +2172,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['filter', 'fields', 'index', 'filterErrors'],
-  data: function data() {
-    return {};
-  },
   methods: {
     setColumn: function setColumn(e) {
       var _this = this;
@@ -2218,17 +2195,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteFilter: function deleteFilter() {
       this.$parent.$emit('delete-Filter', this.index);
-    },
-    errorCheck: function errorCheck(inputCheck) {
-      if (this.filterErrors["f.".concat(this.index, ".column")]) {
-        return true;
-      } else {
-        return false;
-      } // this.errors.column = filterErrors[`f.${this.index}.column`][0];
-      // this.errors.value_1 = filterErrors[`f.${this.index}.value_1`][0];
-      // this.errors.value_2 = filterErrors[`f.${this.index}.value_2`][0];
-      // this.errors.operator = filterErrors[`f.${this.index}.operator`][0];
-
     },
     availableOperators: function availableOperators() {
       return [{
@@ -6784,7 +6750,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.fas.fa-times[data-v-4246277c] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n.is-invalid[data-v-4246277c] {\n\nbackground-image: none;\n}\n\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-4246277c] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n.is-invalid[data-v-4246277c] {\n  background-image: none;\n}\n\n", ""]);
 
 // exports
 
@@ -6822,7 +6788,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\ni.fas.fa-times[data-v-1a075022] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n.is-invalid[data-v-1a075022] {\n\nbackground-image: none;\n}\n\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-1a075022] {\n  font-size: 13px;\n  color: #f44336;\n  margin-right: 8px;\n  margin-right: 8px;\n  margin-top: 7px;\n}\n.is-invalid[data-v-1a075022] {\n  background-image: none;\n}\n\n", ""]);
 
 // exports
 

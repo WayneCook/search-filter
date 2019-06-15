@@ -8,8 +8,8 @@
             <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
             </select>
           <select v-else class="form-control form-control-sm" @input='setColumn($event)'>
-          <option selected>search by</option>
-          <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
+            <option selected>search by</option>
+            <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
           </select>
           <small class='invalid-feedback' v-if='filterErrors[`f.${index}.column`]'>{{ filterErrors[`f.${index}.column`][0] }}</small>
         </div>
@@ -35,19 +35,16 @@
           </select>
         </div>
       </div>
-
       <div class="col">
         <input v-if='filterErrors[`f.${index}.value_1`]' type="text" v-model="filter.value_1" name="keyword" class="is-invalid form-control form-control-sm">
         <small class='invalid-feedback' v-if='filterErrors[`f.${index}.value_1`]'>{{ filterErrors[`f.${index}.value_1`][0] }}</small>
         <input v-else type="text" v-model="filter.value_1" name="keyword" class=" form-control form-control-sm">
       </div>
-
       <div class="col" v-show='filter.operator.component === "double"'>
         <input v-if='filterErrors[`f.${index}.value_2`]' type="text" v-model="filter.value_2" name="keyword" class="invalid-input form-control form-control-sm">
         <input v-else type="text" v-model="filter.value_2" name="keyword" class="form-control form-control-sm">
         <small class="invalid-feedback" v-if='filterErrors[`f.${index}.value_2`]'>{{ filterErrors[`f.${index}.value_2`][0] }}</small>
       </div>
-
       <span @click='deleteFilter()'><i class="fas fa-times"></i></span>
     </div>
   </form>
@@ -58,14 +55,7 @@
 export default {
 
   props: ['filter', 'fields', 'index', 'filterErrors'],
-  data() {
-    return {
-
-
-    }
-  },
   methods: {
-
     setColumn(e) {
       this.fields.forEach((column) => {
         if (column.name === e.target.value) { this.filter.column = column }
@@ -81,21 +71,6 @@ export default {
     deleteFilter() {
       this.$parent.$emit('delete-Filter', this.index);
     },
-
-    errorCheck(inputCheck) {
-
-      if (this.filterErrors[`f.${this.index}.column`]) {
-        return true
-      } else {
-        return false
-      }
-      // this.errors.column = filterErrors[`f.${this.index}.column`][0];
-      // this.errors.value_1 = filterErrors[`f.${this.index}.value_1`][0];
-      // this.errors.value_2 = filterErrors[`f.${this.index}.value_2`][0];
-      // this.errors.operator = filterErrors[`f.${this.index}.operator`][0];
-
-    },
-
     availableOperators() {
       return [
           {title: 'contains', name: 'contains', parent: ['string'], component: 'single'},
@@ -126,20 +101,7 @@ export default {
       return this.availableOperators().filter((eachOperator) => {
         return (eachOperator['parent'].includes(this.filter.column.type))
       })
-    },
-    // errorCheck(inputCheck) {
-    //
-    //   if (this.filterErrors[`f.${this.index}.column`]) {
-    //     return true
-    //   } else {
-    //     return false
-    //   }
-    //   // this.errors.column = filterErrors[`f.${this.index}.column`][0];
-    //   // this.errors.value_1 = filterErrors[`f.${this.index}.value_1`][0];
-    //   // this.errors.value_2 = filterErrors[`f.${this.index}.value_2`][0];
-    //   // this.errors.operator = filterErrors[`f.${this.index}.operator`][0];
-    //
-    // },
+    }
   },
 }
 </script>
@@ -155,9 +117,7 @@ export default {
   }
 
   .is-invalid {
-
-  background-image: none;
-
+    background-image: none;
   }
 
 </style>

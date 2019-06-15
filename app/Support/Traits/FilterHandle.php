@@ -9,25 +9,8 @@ trait FilterHandle {
 
     public function scopeAdvancedFilter($query)
     {
-
-
-      try {
-
-        Validator::make(request()->all(), [
-          'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
-          'order_direction' => 'sometimes|required|in:asc,desc',
-          'limit' => 'sometimes|required|integer|min:1',
-          // advanced filter
-          'match' => 'sometimes|required|in:any,all',
-          'f' => 'sometimes|required|array',
-          'f.*.column' => 'required|in:'.$this->whiteListColumns(),
-          // 'f.*.operator' => 'required_with:f.*.column|in:'.$this->allowedOperators(),
-          'f.*.operator' => 'required|required_with:f.*.column|in:'.$this->allowedOperators(),
-          'f.*.value_1' => 'required',
-          'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
-        ])->validate();
-
-      }
+      // Validate filters
+      try { $this->validatefilters(); }
       catch (ValidationException $exception) {
           return response()->json(['errors' => $exception->errors()], 422);
       }
@@ -39,12 +22,10 @@ trait FilterHandle {
             request('order_direction', 'desc')
           )
           ->paginate(request('limit', 10))]);
-
     }
 
     public function process($query, $data)
     {
-
         return (new CustomQueryBuilder($query, $data))->apply();
     }
 
@@ -79,5 +60,28 @@ trait FilterHandle {
             'equal_to_count',
             'not_equal_to_count'
         ]);
+    }
+
+    public function getTableFields() :array
+    {
+        return $this->tableFields;
+    }
+
+    public function validatefilters()
+    {
+
+      return Validator::make(request()->all(), [
+        'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
+        'order_direction' => 'sometimes|required|in:asc,desc',
+        'limit' => 'sometimes|required|integer|min:1',
+        // advanced filter
+        'match' => 'sometimes|required|in:any,all',
+        'f' => 'sometimes|required|array',
+        'f.*.column' => 'required|in:'.$this->whiteListColumns(),
+        'f.*.operator' => 'required|required_with:f.*.column|in:'.$this->allowedOperators(),
+        'f.*.value_1' => 'required',
+        'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
+      ])->validate();
+
     }
 }

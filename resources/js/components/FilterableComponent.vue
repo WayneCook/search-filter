@@ -140,7 +140,6 @@
               f[`f[${i}][value_2]`] = filter.value_2
               f[`f[${i}][match]`] = this.match
           })
-
         return f
       }
     },
