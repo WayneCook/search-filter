@@ -20,7 +20,7 @@
       <filter-option :filterErrors='errors' :fields='fields' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
         <div class="form-row">
           <div><button class="btn btn-success btn-sm" @click='addFilter'>Add Filter</button></div>
-          <div><button class="btn btn-primary btn-sm" @click='update'>Search</button></div>
+          <div><button v-show='searchIsReady' class="btn btn-primary btn-sm" @click='update'>Search</button></div>
         </div>
       </div><!-- Card body -->
     </div>
@@ -64,6 +64,7 @@
     components: { filterOption },
     data() {
       return {
+        searchIsReady: true,
         loading: false,
         url: 'api/customers',
         filterCandidates: [],
@@ -114,7 +115,6 @@
         axios.get(this.url, {params: params})
           .then((res) => {
 
-            // console.log(res);
             Vue.set(this.$data, 'collection', res.data.collection);
             this.query.current_page = res.data.collection.current_page;
 
@@ -134,11 +134,13 @@
           const f = {}
 
           this.filterCandidates.forEach((filter, i) => {
+            if (filter.column.name) {
               f[`f[${i}][column]`] = filter.column.name
               f[`f[${i}][operator]`] = filter.operator.name
               f[`f[${i}][value_1]`] = filter.value_1
               f[`f[${i}][value_2]`] = filter.value_2
               f[`f[${i}][match]`] = this.match
+            }
           })
         return f
       }
@@ -154,9 +156,11 @@
       this.$on('delete-Filter', function(index) {
         this.$delete(this.filterCandidates, index)
       })
+
       this.fetch();
       this.addFilter();
-    }
+    },
+
   }
 </script>
 
@@ -216,8 +220,5 @@ h4 {
 
   margin-left: 5px;
 }
-
-
-
 
 </style>

@@ -1,23 +1,25 @@
 <template>
   <form>
     <div class="row">
-      <div class="col">
+      <div class="col-4">
         <div class="form-group">
           <select v-if='filterErrors[`f.${index}.column`]' class="is-invalid form-control form-control-sm" @input='setColumn($event)'>
-            <option selected>search by</option>
+            <option selected value=''>Select a filter</option>
             <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
-            </select>
+          </select>
           <select v-else class="form-control form-control-sm" @input='setColumn($event)'>
-            <option selected>search by</option>
+            <option selected>Select a filter</option>
             <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
           </select>
           <small class='invalid-feedback' v-if='filterErrors[`f.${index}.column`]'>{{ filterErrors[`f.${index}.column`][0] }}</small>
         </div>
       </div>
-      <div class="col">
+
+      <!-- Operator -->
+      <div class="col" v-if='filter.column'>
         <div class="form-group">
           <select v-if='filterErrors[`f.${index}.operator`]' class="is-invalid form-control form-control-sm" @input='setOperator($event)'>
-            <option selected>select option</option>
+            <option selected value=''>select a filter</option>
             <option
               v-for='operator in getOperators'
               :value='operator.name'
@@ -34,8 +36,10 @@
             </option>
           </select>
         </div>
-      </div>
-      <div class="col">
+      </div> <!-- End Operator -->
+
+      <!-- Value_1 -->
+      <div class="col" v-if='filter.column'>
         <input v-if='filterErrors[`f.${index}.value_1`]' type="text" v-model="filter.value_1" name="keyword" class="is-invalid form-control form-control-sm">
         <small class='invalid-feedback' v-if='filterErrors[`f.${index}.value_1`]'>{{ filterErrors[`f.${index}.value_1`][0] }}</small>
         <input v-else type="text" v-model="filter.value_1" name="keyword" class=" form-control form-control-sm">
@@ -60,6 +64,7 @@ export default {
       this.fields.forEach((column) => {
         if (column.name === e.target.value) { this.filter.column = column }
       });
+
     },
     setOperator(e) {
       this.availableOperators().forEach((operator) => {

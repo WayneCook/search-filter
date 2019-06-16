@@ -10,10 +10,15 @@ trait FilterHandle {
     public function scopeAdvancedFilter($query)
     {
       // Validate filters
-      try { $this->validatefilters(); }
-      catch (ValidationException $exception) {
-          return response()->json(['errors' => $exception->errors()], 422);
-      }
+      if (!empty(request()->all())) {
+
+          try {
+            $this->validatefilters();
+           }
+          catch (ValidationException $exception) {
+              return response()->json(['errors' => $exception->errors()], 422);
+          }
+    }
 
       return response()->json([
         'collection' => $this->process($query, request()->all())
@@ -70,6 +75,8 @@ trait FilterHandle {
     public function validatefilters()
     {
 
+
+
       return Validator::make(request()->all(), [
         'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
         'order_direction' => 'sometimes|required|in:asc,desc',
@@ -77,11 +84,11 @@ trait FilterHandle {
         // advanced filter
         'match' => 'sometimes|required|in:any,all',
         'f' => 'sometimes|required|array',
-        'f.*.column' => 'required|in:'.$this->whiteListColumns(),
+        'f.*.column' => 'required|required|in:'.$this->whiteListColumns(),
         'f.*.operator' => 'required|required_with:f.*.column|in:'.$this->allowedOperators(),
         'f.*.value_1' => 'required',
         'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
       ])->validate();
-
     }
+
 }

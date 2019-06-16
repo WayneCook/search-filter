@@ -8,8 +8,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-Vue.component('filterable', require('./components/FilterableComponent.vue').default);
-Vue.component('filter-opitions', require('./components/FilterOptionsComponent.vue').default);
+Vue.component('filterable', require('./components/SearchFilter/FilterableComponent.vue').default);
+Vue.component('filter-opitions', require('./components/SearchFilter/FilterOptionsComponent.vue').default);
 
 /**
  * The following block of code may be used to automatically register your
