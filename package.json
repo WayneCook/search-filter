@@ -22,11 +22,14 @@
         "resolve-url-loader": "^2.3.1",
         "sass": "^1.21.0",
         "sass-loader": "^7.1.0",
-        "vue": "^2.5.17",
+        "vue": "^2.6.10",
         "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.9.0",
-        "font-awesome": "^4.7.0"
+        "element-ui": "^2.9.2",
+        "font-awesome": "^4.7.0",
+        "vuetify": "^1.5.16",
+        "yarn": "^1.16.0"
     }
 }

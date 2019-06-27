@@ -3,102 +3,117 @@
     <div class="row">
       <div class="col-4">
         <div class="form-group">
-          <select v-if='filterErrors[`f.${index}.column`]' class="is-invalid form-control form-control-sm" @input='setColumn($event)'>
-            <option selected value=''>Select a filter</option>
-            <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
-          </select>
-          <select v-else class="form-control form-control-sm" @input='setColumn($event)'>
-            <option selected>Select a filter</option>
-            <option :value='option.name' v-for='option in this.fields'>{{ option.title }}</option>
-          </select>
-          <small class='invalid-feedback' v-if='filterErrors[`f.${index}.column`]'>{{ filterErrors[`f.${index}.column`][0] }}</small>
+            <v-select
+              label='Filter by'
+              :items='fields'
+              :item-value='fields.value'
+              @input='setColumn($event)'
+              :error-messages='getError(`f.${index}.column`)'
+              color='purple'
+            ></v-select> 
         </div>
       </div>
 
       <!-- Operator -->
-      <div class="col" v-if='filter.column'>
+      <div class="col-4">
         <div class="form-group">
-          <select v-if='filterErrors[`f.${index}.operator`]' class="is-invalid form-control form-control-sm" @input='setOperator($event)'>
-            <option selected value=''>select a filter</option>
-            <option
-              v-for='operator in getOperators'
-              :value='operator.name'
-              >{{ operator.title }}
-            </option>
-          </select>
-          <small class='invalid-feedback' v-if='filterErrors[`f.${index}.operator`]'>{{ filterErrors[`f.${index}.operator`][0] }}</small>
-          <select v-else class="form-control form-control-sm" @input='setOperator($event)'>
-            <option selected>select option</option>
-            <option
-              v-for='operator in getOperators'
-              :value='operator.name'
-              >{{ operator.title }}
-            </option>
-          </select>
-        </div>
+          <v-select
+            :items="getOperators"
+            label="Filter by"
+            :item-value="getOperators.value"
+            @input='setOperator($event)'
+            :error-messages="getError(`f.${index}.operator`)" 
+            color='purple'
+            v-if='this.filter.column'
+          ></v-select>
+        </div>    
       </div> <!-- End Operator -->
 
       <!-- Value_1 -->
-      <div class="col" v-if='filter.column'>
-        <input v-if='filterErrors[`f.${index}.value_1`]' type="text" v-model="filter.value_1" name="keyword" class="is-invalid form-control form-control-sm">
-        <small class='invalid-feedback' v-if='filterErrors[`f.${index}.value_1`]'>{{ filterErrors[`f.${index}.value_1`][0] }}</small>
-        <input v-else type="text" v-model="filter.value_1" name="keyword" class=" form-control form-control-sm">
+      <div class="col">
+        <v-text-field
+          v-model='filter.value_1' 
+          label="Regular"
+          :error-messages="getError(`f.${index}.value_1`)"
+          color='purple'
+          v-if='this.filter.column'
+          ></v-text-field>
       </div>
+
+      <!-- Value_2 -->
       <div class="col" v-show='filter.operator.component === "double"'>
-        <input v-if='filterErrors[`f.${index}.value_2`]' type="text" v-model="filter.value_2" name="keyword" class="invalid-input form-control form-control-sm">
-        <input v-else type="text" v-model="filter.value_2" name="keyword" class="form-control form-control-sm">
-        <small class="invalid-feedback" v-if='filterErrors[`f.${index}.value_2`]'>{{ filterErrors[`f.${index}.value_2`][0] }}</small>
+        <v-text-field
+          v-model='filter.value_2' 
+          label="Regular"
+          :error-messages="getError(`f.${index}.value_2`)"
+          color='purple'
+        ></v-text-field>
       </div>
-      <span @click='deleteFilter()'><i class="fas fa-times"></i></span>
+
+
+      <v-btn fab dark small color="normal" @click='deleteFilter()' v-if='this.filter.column'>
+      <v-icon dark>remove</v-icon>
+    </v-btn>
+
+
     </div>
   </form>
 </template>
 
 <script>
 
+
 export default {
 
   props: ['filter', 'fields', 'index', 'filterErrors'],
+
   methods: {
     setColumn(e) {
+
       this.fields.forEach((column) => {
-        if (column.name === e.target.value) { this.filter.column = column }
+        if (column.value === e) { this.filter.column = column }
       });
 
     },
     setOperator(e) {
+  
       this.availableOperators().forEach((operator) => {
-        if (operator.name === e.target.value) {
+        if (operator.value === e) {
           this.filter.operator = operator;
         }
       });
     },
     deleteFilter() {
-      this.$parent.$emit('delete-Filter', this.index);
-    },
+
+      this.$eventHub.$emit('delete-filter', this.index);
+
+    }, 
     availableOperators() {
       return [
-          {title: 'contains', name: 'contains', parent: ['string'], component: 'single'},
-          {title: 'starts with', name: 'starts_with', parent: ['string'], component: 'single'},
-          {title: 'ends with', name: 'ends_with', parent: ['string'], component: 'single'},
+          {text: 'contains', value: 'contains', parent: ['string'], component: 'single'},
+          {text: 'starts with', value: 'starts_with', parent: ['string'], component: 'single'},
+          {text: 'ends with', value: 'ends_with', parent: ['string'], component: 'single'},
 
-          {title: 'equal to', name: 'equal_to', parent: ['numeric', 'string'], component: 'single'},
-          {title: 'not equal to', name: 'not_equal_to', parent: ['numeric', 'string'], component: 'single'},
-          {title: 'less than', name: 'less_than', parent: ['numeric'], component: 'single'},
-          {title: 'greater than', name: 'greater_than', parent: ['numeric'], component: 'single'},
+          {text: 'equal to', value: 'equal_to', parent: ['numeric', 'string'], component: 'single'},
+          {text: 'not equal to', value: 'not_equal_to', parent: ['numeric', 'string'], component: 'single'},
+          {text: 'less than', value: 'less_than', parent: ['numeric'], component: 'single'},
+          {text: 'greater than', value: 'greater_than', parent: ['numeric'], component: 'single'},
 
-          {title: 'between', name: 'between', parent: ['numeric'], component: 'double'},
-          {title: 'not between', name: 'not_between', parent: ['numeric'], component: 'double'},
+          {text: 'between', value: 'between', parent: ['numeric'], component: 'double'},
+          {text: 'not between', value: 'not_between', parent: ['numeric'], component: 'double'},
 
-          {title: 'in the past', name: 'in_the_past', parent: ['datetime'], component: 'datetime_1'},
-          {title: 'in the next', name: 'in_the_next', parent: ['datetime'], component: 'datetime_1'},
-          {title: 'in the peroid', name: 'in_the_peroid', parent: ['datetime'], component: 'datetime_2'},
+          {text: 'in the past', value: 'in_the_past', parent: ['datetime'], component: 'datetime_1'},
+          {text: 'in the next', value: 'in_the_next', parent: ['datetime'], component: 'datetime_1'},
+          {text: 'in the peroid', value: 'in_the_peroid', parent: ['datetime'], component: 'datetime_2'},
 
-          {title: 'equal to', name: 'equal_to_count', parent: ['counter'], component: 'single'},
-          {title: 'not equal to', name: 'not_equal_to_count', parent: ['counter'], component: 'single'},
-          {title: 'less than', name: 'less_than_count', parent: ['counter'], component: 'single'},
-          {title: 'greater than', name: 'greater_than_count', parent: ['counter'], component: 'single'},
+          {text: 'equal to', value: 'equal_to_count', parent: ['counter'], component: 'single'},
+          {text: 'not equal to', value: 'not_equal_to_count', parent: ['counter'], component: 'single'},
+          {text: 'less than', value: 'less_than_count', parent: ['counter'], component: 'single'},
+          {text: 'greater than', value: 'greater_than_count', parent: ['counter'], component: 'single'},
       ]
+    },
+    getError(input) {
+      return this.filterErrors[input] ? this.filterErrors[input][0] : '';
     }
   },
   computed: {
@@ -106,8 +121,9 @@ export default {
       return this.availableOperators().filter((eachOperator) => {
         return (eachOperator['parent'].includes(this.filter.column.type))
       })
-    }
-  },
+    },
+
+  }
 }
 </script>
 
@@ -121,8 +137,11 @@ export default {
     margin-top: 7px;
   }
 
-  .is-invalid {
-    background-image: none;
-  }
+  .v-btn--active, .v-btn:focus, .v-btn:hover {
+    border: none;
+    outline: none;
+}
+
+
 
 </style>

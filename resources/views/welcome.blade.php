@@ -5,26 +5,39 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
         <script src="{{ asset('js/app.js') }}" defer></script>
+        <link href='https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900|Material+Icons' rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+        <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/mdbootstrap/4.8.2/css/mdb.min.css" rel="stylesheet">
+         -->
 
-        <title>Product Search</title>
+        <title>Employee Search</title>
 
         <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet"> -->
 
         <!-- Styles -->
         <style>
           body {
-            background-color: whitesmoke;
+           
           }
+
+          .theme--light.application {
+              background: blue;
+              color: rgba(0,0,0,.87);
+          }
+         
+
+  
         </style>
     </head>
-    <body>
-      <div id="app">
 
-        {{-- <product-search :products='{{ $products }}'></product-search> --}}
+
+    <body>
+      <v-app id="app">
+
       <filterable :fields='{{ json_encode($tableFields) }}'></filterable>
 
-  </div>
+        </v-app>
+
     </body>
 </html>

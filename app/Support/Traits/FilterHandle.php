@@ -9,16 +9,11 @@ trait FilterHandle {
 
     public function scopeAdvancedFilter($query)
     {
-      // Validate filters
-      if (!empty(request()->all())) {
-
-          try {
+        // Validate filters
+        if (!empty(request()->all())) {
+          
             $this->validatefilters();
-           }
-          catch (ValidationException $exception) {
-              return response()->json(['errors' => $exception->errors()], 422);
-          }
-    }
+        }
 
       return response()->json([
         'collection' => $this->process($query, request()->all())
@@ -75,9 +70,7 @@ trait FilterHandle {
     public function validatefilters()
     {
 
-
-
-      return Validator::make(request()->all(), [
+      $validator = Validator::make(request()->all(), [
         'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
         'order_direction' => 'sometimes|required|in:asc,desc',
         'limit' => 'sometimes|required|integer|min:1',
@@ -89,6 +82,6 @@ trait FilterHandle {
         'f.*.value_1' => 'required',
         'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
       ])->validate();
-    }
 
+    }
 }

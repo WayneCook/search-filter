@@ -4,12 +4,21 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+
+
 require('./bootstrap');
+import Vuetify from 'vuetify';
 
 window.Vue = require('vue');
 
 Vue.component('filterable', require('./components/SearchFilter/FilterableComponent.vue').default);
-Vue.component('filter-opitions', require('./components/SearchFilter/FilterOptionsComponent.vue').default);
+import 'vuetify/dist/vuetify.min.css';
+
+Vue.use(Vuetify);
+
+Vue.prototype.$eventHub = new Vue(); // Global event bus
+
+
 
 /**
  * The following block of code may be used to automatically register your
@@ -29,6 +38,9 @@ Vue.component('filter-opitions', require('./components/SearchFilter/FilterOption
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+
+
 const app = new Vue({
     el: '#app',
+    
 });

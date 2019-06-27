@@ -1,42 +1,72 @@
 <template>
   <div class="container">
-    </br>
-    </br>
-    <div class="card">
-      <div class="card-header">
-        <div class="row d-flex justify-content-between d-flex align-items-center">
+    <br>
+    <br>
+
+    <v-card>
+
+      <v-card-title primary-title>
+
+        <div class="headline"><v-icon class="purple myIcon" large dark>search</v-icon>Employee Search</div>
+       
+      </v-card-title>
+
+
+<!-- 
+      <div>
+        <div class="d-flex justify-content-between d-flex align-items-center">
           <h4>Employee Search</h4>
           <div class="d-flex align-items-center match-options">
             <span>Match</span>
-            <select class="form-control form-control-sm" v-model='query.match'>
+            <select class="form-control form-control-sm match-select" v-model='query.match'>
               <option selected value="all">All</option>
               <option value="any">Any</option>
             </select>
             <span>filters</span>
           </div>
         </div>
-      </div> <!-- Card head -->
+      </div> Card head -->
+
+
       <div class="card-body">
-      <filter-option :filterErrors='errors' :fields='fields' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
+      <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
         <div class="form-row">
-          <div><button class="btn btn-success btn-sm" @click='addFilter'>Add Filter</button></div>
-          <div><button v-show='searchIsReady' class="btn btn-primary btn-sm" @click='update'>Search</button></div>
+          <!-- <div><button class="btn btn-success btn-md" @click='addFilter'>Add Filter</button></div> -->
+          <!-- <div><v-btn small color="success" @click='addFilter'>add filter</v-btn></div> -->
+          <v-btn fab small dark color="teal" @click='addFilter'>
+            <v-icon dark>add</v-icon>
+          </v-btn>
+
+
+
+          <!-- <div><v-btn small color="purple" @click='update'>Search</v-btn></div> -->
+
+          <v-btn fab small dark color="purple" @click='update'>
+            <v-icon dark>search</v-icon>
+          </v-btn>
+
+          <!-- <div><button v-show='searchIsReady' class="btn btn-primary btn-md" @click='update'>Search</button></div> -->
         </div>
       </div><!-- Card body -->
-    </div>
-    </br>
+    </v-card>
+
+    <br>
+
+
     <div class="card table-card">
       <table class="table table-hover table-sm">
-        <thead class=""><th v-for='(field, i) in fields'>{{field.title}}</th></thead>
+        <thead class=""><th v-bind:key='i' v-for='(field, i) in fields'>{{field.text}}</th></thead>
         <tbody>
-          <tr v-for='(row, i) in collection.data'>
-            <td v-for='(field, i) in fields'>{{ row[field['name']] }}</td>
+          <tr v-bind:key='i' v-for='(row, i) in collection.data'>
+            <td v-bind:key='i' v-for='(field, i) in fields'>{{ row[field['value']] }}</td>
           </tr>
         </tbody>
       </table>
     <div class="changePageSection">
-      <div><button class="btn btn-secondary btn-sm" @click="prevPage">Previous</button></div>
-      <div><button class="btn btn-secondary btn-sm" @click="nextPage">Next</button></div>
+      <div>
+      <button class="btn btn-secondary btn-md" @click="prevPage">Previous</button>
+      <button class="btn btn-secondary btn-md" @click="nextPage">Next</button>
+      </div>
       <div><small> Showing {{collection.from}} - {{collection.to}} of {{collection.total}} entries.</small></div>
       <div class="perPageSelect">
         <div class="form-group form-inline">
@@ -52,6 +82,7 @@
       </div>
     </div>
   </div><!-- Table -->
+
   </div>
 </template>
 
@@ -64,11 +95,14 @@
     components: { filterOption },
     data() {
       return {
+        selectValue: '',
         searchIsReady: true,
         loading: false,
         url: 'api/customers',
         filterCandidates: [],
-        errors: {},
+        errors: {
+     
+        },
         query: {
           order_column: 'first_name',
           order_direction: 'asc',
@@ -115,6 +149,7 @@
         axios.get(this.url, {params: params})
           .then((res) => {
 
+            console.log(this.filterCandidates);
             Vue.set(this.$data, 'collection', res.data.collection);
             this.query.current_page = res.data.collection.current_page;
 
@@ -134,9 +169,9 @@
           const f = {}
 
           this.filterCandidates.forEach((filter, i) => {
-            if (filter.column.name) {
-              f[`f[${i}][column]`] = filter.column.name
-              f[`f[${i}][operator]`] = filter.operator.name
+            if (filter.column.value) {
+              f[`f[${i}][column]`] = filter.column.value
+              f[`f[${i}][operator]`] = filter.operator.value
               f[`f[${i}][value_1]`] = filter.value_1
               f[`f[${i}][value_2]`] = filter.value_2
               f[`f[${i}][match]`] = this.match
@@ -153,21 +188,29 @@
       }
     },
     mounted() {
-      this.$on('delete-Filter', function(index) {
+
+      this.$eventHub.$on('delete-filter', index => {        
         this.$delete(this.filterCandidates, index)
-      })
+
+      });
 
       this.fetch();
       this.addFilter();
+
     },
 
   }
 </script>
 
 <style scoped>
-  .profileImage {
-    width: 40px;
-  }
+
+.container {
+  max-width: 1200px;
+}
+
+.profileImage {
+  width: 40px;
+}
 
 h4 {
   margin-bottom: 0px;
@@ -201,8 +244,9 @@ h4 {
   justify-content: flex-start;
 }
 
-.form-row div {
-  margin-right: 5px;
+.v-btn--active, .v-btn:focus, .v-btn:hover {
+    border: none;
+    outline: none;
 }
 
 
@@ -212,13 +256,33 @@ h4 {
   justify-content: space-between;
 }
 
-.changePageSection div:nth-child(3) {
-  flex:1;
-}
+
 
 .countSelect {
 
   margin-left: 5px;
 }
+
+.match-select {
+  display: inline-block;
+  width: auto;
+  vertical-align: middle;
+}
+
+
+.myIcon {
+  padding: 14px 14px;
+  border-radius: 4px;
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(207, 30, 233, 0.4);
+  margin-right: 14px;
+}
+
+.headline {
+    font-size: 26px!important;
+    line-height: 32px!important;
+    font-weight: 300;
+    color: #797679;
+}
+
 
 </style>
