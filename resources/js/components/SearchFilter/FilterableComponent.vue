@@ -1,93 +1,82 @@
 <template>
   <div class="container">
-    <br>
-    <br>
 
     <v-card>
-
       <v-card-title primary-title>
-
-        <div class="headline"><v-icon class="purple myIcon" large dark>search</v-icon>Employee Search</div>
-       
+        <div class="headline"><v-icon class="purple myIcon" medium dark>search</v-icon>Employee Search</div>
       </v-card-title>
-
-
-<!-- 
-      <div>
-        <div class="d-flex justify-content-between d-flex align-items-center">
-          <h4>Employee Search</h4>
-          <div class="d-flex align-items-center match-options">
-            <span>Match</span>
-            <select class="form-control form-control-sm match-select" v-model='query.match'>
-              <option selected value="all">All</option>
-              <option value="any">Any</option>
-            </select>
-            <span>filters</span>
-          </div>
-        </div>
-      </div> Card head -->
-
 
       <div class="card-body">
       <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
         <div class="form-row">
-          <!-- <div><button class="btn btn-success btn-md" @click='addFilter'>Add Filter</button></div> -->
-          <!-- <div><v-btn small color="success" @click='addFilter'>add filter</v-btn></div> -->
           <v-btn fab small dark color="teal" @click='addFilter'>
             <v-icon dark>add</v-icon>
           </v-btn>
-
-
-
-          <!-- <div><v-btn small color="purple" @click='update'>Search</v-btn></div> -->
 
           <v-btn fab small dark color="purple" @click='update'>
             <v-icon dark>search</v-icon>
           </v-btn>
 
-          <!-- <div><button v-show='searchIsReady' class="btn btn-primary btn-md" @click='update'>Search</button></div> -->
         </div>
-      </div><!-- Card body -->
+      </div>
     </v-card>
 
     <br>
+      <v-data-table
+        :headers='fields'
+        :items='collection.data'
+        :pagination.sync='table.pagination'
+        class='elevation-1'
+        hide-actions
+        :loading='loading'
+        align='left'
+      >
+      <template v-slot:items="props">
+        <td class="text-xs-left" v-for='(header, i) in fields' :key='i'>{{ props.item[header.value] }}</td>
+      </template>
 
+      <template v-slot:footer>
+        <td :colspan="fields.length">
+            
 
-    <div class="card table-card">
-      <table class="table table-hover table-sm">
-        <thead class=""><th v-bind:key='i' v-for='(field, i) in fields'>{{field.text}}</th></thead>
-        <tbody>
-          <tr v-bind:key='i' v-for='(row, i) in collection.data'>
-            <td v-bind:key='i' v-for='(field, i) in fields'>{{ row[field['value']] }}</td>
-          </tr>
-        </tbody>
-      </table>
-    <div class="changePageSection">
-      <div>
-      <button class="btn btn-secondary btn-md" @click="prevPage">Previous</button>
-      <button class="btn btn-secondary btn-md" @click="nextPage">Next</button>
-      </div>
-      <div><small> Showing {{collection.from}} - {{collection.to}} of {{collection.total}} entries.</small></div>
-      <div class="perPageSelect">
-        <div class="form-group form-inline">
-          <small for="countSelect">Show per page</small>
-          <select class="form-control form-control-sm countSelect" name='countSelect' @change='fetch()' v-model='query.limit'>
-            <option value="10">10</option>
-            <option value="15">15</option>
-            <option value="25">25</option>
-            <option value="50">50</option>
-            <option value="100">100</option>
-          </select>
-        </div>
-      </div>
+          <v-layout align-center row>
+            <v-subheader>Rows per page:</v-subheader>
+
+            <div class='rowSelectContainer'>
+              
+              <v-select
+                  v-model='query.limit'
+                  class="rowSelector text-xs-center"
+                  :items='[5,10,15]'
+                  :item-value='[5,10,15]'
+                  color='purple'
+                  width='40px'
+                  @change='rowsChange()'
+              ></v-select> 
+            </div>
+
+          </v-layout>
+              
+        </td>
+      </template>
+
+    </v-data-table>
+    <div class="text-xs-center pt-2">
+      <v-pagination 
+          v-model="query.page" 
+          :length="table.pagination.total"
+          :total-visible='10'
+          circle
+          color='purple'
+          @input="onPageChange"
+      >
+      </v-pagination>
     </div>
-  </div><!-- Table -->
-
   </div>
 </template>
 
 <script>
-  import filterOption from './filterOptionsComponent.vue';
+  import filterOption from './FilterOptionsComponent.vue';
 
   export default {
 
@@ -95,23 +84,29 @@
     components: { filterOption },
     data() {
       return {
+        table: {
+          pagination: {
+            current: 1,
+            total: 0,
+            rowsPerPage: 5
+          }
+        },
         selectValue: '',
         searchIsReady: true,
-        loading: false,
+        loading: 'false',
         url: 'api/customers',
         filterCandidates: [],
-        errors: {
-     
-        },
+        errors: {},
         query: {
           order_column: 'first_name',
           order_direction: 'asc',
           match: 'all',
-          limit: 10,
+          total: 0,
+          limit: 5,
           page: 1,
         },
         collection: {
-            data: []
+          data: []
         }
       }
     },
@@ -120,18 +115,6 @@
       update() {
         this.fetch();
       },
-      nextPage() {
-        if(this.collection.next_page_url) {
-               this.query.page = Number(this.query.page) + 1
-               this.fetch();
-           }
-       },
-       prevPage() {
-         if(this.collection.prev_page_url) {
-                this.query.page = Number(this.query.page) - 1
-                this.fetch();
-            }
-       },
        addFilter() {
         this.filterCandidates.push({
           column: '',
@@ -141,7 +124,7 @@
         })
        },
        fetch() {
-        this.loading = true;
+        this.loading = 'purple';
         this.errors = {};
         const filters = this.getFilters();
         const params = { ...filters, ...this.query }
@@ -149,9 +132,10 @@
         axios.get(this.url, {params: params})
           .then((res) => {
 
-            console.log(this.filterCandidates);
             Vue.set(this.$data, 'collection', res.data.collection);
-            this.query.current_page = res.data.collection.current_page;
+            this.query.total = res.data.collection.total;
+            this.table.pagination.total = res.data.collection.last_page;
+            this.query.page = res.data.collection.current_page;
 
           })
           .catch((error) => {
@@ -178,7 +162,15 @@
             }
           })
         return f
-      }
+      },
+      rowsChange() {
+        console.log(this.query.limit);
+        this.table.pagination.rowsPerPage = this.query.limit;
+        this.update();
+      },
+      onPageChange() {
+            this.fetch();
+        }
     },
     computed: {
       pageCount() {
@@ -188,25 +180,24 @@
       }
     },
     mounted() {
-
       this.$eventHub.$on('delete-filter', index => {        
         this.$delete(this.filterCandidates, index)
-
       });
-
       this.fetch();
       this.addFilter();
-
-    },
-
+    }
   }
 </script>
 
 <style scoped>
 
+
+
 .container {
-  max-width: 1200px;
+  max-width: 1000px;
+  /* background: linear-gradient(45deg, #009688f2, #b51889de); */
 }
+
 
 .profileImage {
   width: 40px;
@@ -256,8 +247,6 @@ h4 {
   justify-content: space-between;
 }
 
-
-
 .countSelect {
 
   margin-left: 5px;
@@ -271,7 +260,7 @@ h4 {
 
 
 .myIcon {
-  padding: 14px 14px;
+  padding: 12px 12px;
   border-radius: 4px;
   box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(207, 30, 233, 0.4);
   margin-right: 14px;
@@ -284,5 +273,18 @@ h4 {
     color: #797679;
 }
 
+.rowSelectContainer {
+  width: 20px;
+}
+
+.rowSelector {
+  font-size: 12px;
+}
+
+.v-subheader {
+
+    font-size: 12px!important;
+
+}
 
 </style>

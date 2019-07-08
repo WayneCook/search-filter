@@ -11,7 +11,7 @@ trait FilterHandle {
     {
         // Validate filters
         if (!empty(request()->all())) {
-          
+
             $this->validatefilters();
         }
 

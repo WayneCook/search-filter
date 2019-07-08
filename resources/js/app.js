@@ -14,6 +14,7 @@ window.Vue = require('vue');
 Vue.component('filterable', require('./components/SearchFilter/FilterableComponent.vue').default);
 import 'vuetify/dist/vuetify.min.css';
 
+
 Vue.use(Vuetify);
 
 Vue.prototype.$eventHub = new Vue(); // Global event bus

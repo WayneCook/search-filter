@@ -17,23 +17,16 @@
 
         <!-- Styles -->
         <style>
-          body {
-           
-          }
-
-          .theme--light.application {
-              background: blue;
-              color: rgba(0,0,0,.87);
-          }
-         
-
+     .theme--light.application {
+          background: #eee!important;
+      }
   
         </style>
     </head>
 
 
     <body>
-      <v-app id="app">
+      <v-app light id="app">
 
       <filterable :fields='{{ json_encode($tableFields) }}'></filterable>
 

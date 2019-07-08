@@ -15,5 +15,5 @@ class customerApiController extends Controller
         return Customer::advancedFilter();
     }
 
-  
+
 }

@@ -15,26 +15,60 @@
       </div>
 
       <!-- Operator -->
-      <div class="col-4">
-        <div class="form-group">
+      <div class='col-4'>
+        <div class='form-group'>
           <v-select
-            :items="getOperators"
-            label="Filter by"
-            :item-value="getOperators.value"
+            :items='getOperators'
+            label='Filter by'
+            :item-value='getOperators.value'
             @input='setOperator($event)'
-            :error-messages="getError(`f.${index}.operator`)" 
+            :error-messages='getError(`f.${index}.operator`)' 
             color='purple'
             v-if='this.filter.column'
           ></v-select>
+
         </div>    
       </div> <!-- End Operator -->
 
+        <div class='col' v-show='filter.column.type === "datetime"'>
+          <v-menu
+              
+              ref="menu"
+              v-model="menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              :return-value.sync="date"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+          >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+                v-model="date"
+                label="Picker in menu"
+                prepend-icon="event"
+                color='purple'
+                readonly
+                v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="date" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+          </v-date-picker>
+        </v-menu>
+
+      </div>
+
       <!-- Value_1 -->
-      <div class="col">
+      <div class='col' v-show='filter.column.type !== "datetime"'>
         <v-text-field
           v-model='filter.value_1' 
-          label="Regular"
-          :error-messages="getError(`f.${index}.value_1`)"
+          label='Regular'
+          :error-messages='getError(`f.${index}.value_1`)'
           color='purple'
           v-if='this.filter.column'
           ></v-text-field>
@@ -67,12 +101,21 @@ export default {
 
   props: ['filter', 'fields', 'index', 'filterErrors'],
 
+  data() {
+    return {
+      date: '',
+      menu: ''
+    }
+  },
+
   methods: {
     setColumn(e) {
 
       this.fields.forEach((column) => {
         if (column.value === e) { this.filter.column = column }
       });
+
+      console.log(this.filter);
 
     },
     setOperator(e) {
