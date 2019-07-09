@@ -2,31 +2,30 @@
   <div class="container">
 
     <v-form ref="form">
+      <v-card>
+        <v-card-title primary-title>
+          <div class="headline"><v-icon class="purple myIcon" medium dark>search</v-icon>Employee Search</div>
+        </v-card-title>
 
-    <v-card>
-      <v-card-title primary-title>
-        <div class="headline"><v-icon class="purple myIcon" medium dark>search</v-icon>Employee Search</div>
-      </v-card-title>
+        <div class="card-body">
+        <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
+          <div class="form-row">
+            <v-btn fab small dark color="teal" @click='addFilter'>
+              <v-icon dark>add</v-icon>
+            </v-btn>
 
-      <div class="card-body">
-      <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
-        <div class="form-row">
-          <v-btn fab small dark color="teal" @click='addFilter'>
-            <v-icon dark>add</v-icon>
-          </v-btn>
+            <v-btn fab small dark color="default" @click='reset'>
+              <v-icon dark>cached</v-icon>
+            </v-btn>
 
-           <v-btn fab small dark color="default" @click='reset'>
-            <v-icon dark>cached</v-icon>
-          </v-btn>
+            <v-btn fab small dark color="purple" @click='search'>
+              <v-icon dark>search</v-icon>
+            </v-btn>
 
-          <v-btn fab small dark color="purple" @click='update'>
-            <v-icon dark>search</v-icon>
-          </v-btn>
-
+          </div>
         </div>
-      </div>
-    </v-card>
-      </v-form>
+      </v-card>
+    </v-form>
 
     <br>
       <v-data-table
@@ -45,7 +44,6 @@
       <template v-slot:footer>
         <td :colspan="fields.length">
             
-
           <v-layout align-center row>
             <v-subheader>Rows per page:</v-subheader>    
 
@@ -61,11 +59,8 @@
                   @change='rowsChange()'
               ></v-select> 
             </div>
-
           </v-layout>
-              
         </td>
-  
       </template>
 
     </v-data-table>
@@ -123,6 +118,10 @@
       update() {
         this.fetch();
       },
+       search() {
+        this.query.page = 1;
+        this.fetch();
+      },
        addFilter() {
         this.filterCandidates.push({
           column: '',
@@ -133,7 +132,6 @@
        },
        reset() {
          this.filterCandidates = [];
-
          this.addFilter();
          this.$refs.form.reset();
        },

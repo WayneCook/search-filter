@@ -2046,11 +2046,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['fields'],
@@ -2087,6 +2082,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   methods: {
     update: function update() {
+      this.fetch();
+    },
+    search: function search() {
+      this.query.page = 1;
       this.fetch();
     },
     addFilter: function addFilter() {
@@ -38693,7 +38692,7 @@ var render = function() {
                             dark: "",
                             color: "purple"
                           },
-                          on: { click: _vm.update }
+                          on: { click: _vm.search }
                         },
                         [
                           _c("v-icon", { attrs: { dark: "" } }, [
