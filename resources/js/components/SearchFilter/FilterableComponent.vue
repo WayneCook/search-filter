@@ -1,6 +1,8 @@
 <template>
   <div class="container">
 
+    <v-form ref="form">
+
     <v-card>
       <v-card-title primary-title>
         <div class="headline"><v-icon class="purple myIcon" medium dark>search</v-icon>Employee Search</div>
@@ -13,6 +15,10 @@
             <v-icon dark>add</v-icon>
           </v-btn>
 
+           <v-btn fab small dark color="default" @click='reset'>
+            <v-icon dark>cached</v-icon>
+          </v-btn>
+
           <v-btn fab small dark color="purple" @click='update'>
             <v-icon dark>search</v-icon>
           </v-btn>
@@ -20,6 +26,7 @@
         </div>
       </div>
     </v-card>
+      </v-form>
 
     <br>
       <v-data-table
@@ -40,7 +47,7 @@
             
 
           <v-layout align-center row>
-            <v-subheader>Rows per page:</v-subheader>
+            <v-subheader>Rows per page:</v-subheader>    
 
             <div class='rowSelectContainer'>
               
@@ -58,6 +65,7 @@
           </v-layout>
               
         </td>
+  
       </template>
 
     </v-data-table>
@@ -122,6 +130,12 @@
           value_1: '',
           value_2: ''
         })
+       },
+       reset() {
+         this.filterCandidates = [];
+
+         this.addFilter();
+         this.$refs.form.reset();
        },
        fetch() {
         this.loading = 'purple';

@@ -1793,24 +1793,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['filter', 'fields', 'index', 'filterErrors'],
   data: function data() {
     return {
-      date: '',
-      menu: ''
+      date_1: {
+        date: '',
+        menu: ''
+      },
+      date_2: {
+        date: '',
+        menu: ''
+      }
     };
   },
   methods: {
     setColumn: function setColumn(e) {
       var _this = this;
 
+      this.resetFilter();
       this.fields.forEach(function (column) {
         if (column.value === e) {
           _this.filter.column = column;
         }
       });
-      console.log(this.filter);
+    },
+    updateValue: function updateValue() {
+      this.filter.value_1 = this.date_1.date;
     },
     setOperator: function setOperator(e) {
       var _this2 = this;
@@ -1823,6 +1865,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteFilter: function deleteFilter() {
       this.$eventHub.$emit('delete-filter', this.index);
+    },
+    resetFilter: function resetFilter() {
+      this.filter.operator = '';
+      this.filter.column = '';
+      this.filter.value_1 = '';
+      this.filter.value_2 = '';
     },
     availableOperators: function availableOperators() {
       return [{
@@ -1863,7 +1911,7 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'between',
         value: 'between',
-        parent: ['numeric'],
+        parent: ['numeric', 'datetime'],
         component: 'double'
       }, {
         text: 'not between',
@@ -1885,26 +1933,6 @@ __webpack_require__.r(__webpack_exports__);
         value: 'in_the_peroid',
         parent: ['datetime'],
         component: 'datetime_2'
-      }, {
-        text: 'equal to',
-        value: 'equal_to_count',
-        parent: ['counter'],
-        component: 'single'
-      }, {
-        text: 'not equal to',
-        value: 'not_equal_to_count',
-        parent: ['counter'],
-        component: 'single'
-      }, {
-        text: 'less than',
-        value: 'less_than_count',
-        parent: ['counter'],
-        component: 'single'
-      }, {
-        text: 'greater than',
-        value: 'greater_than_count',
-        parent: ['counter'],
-        component: 'single'
       }];
     },
     getError: function getError(input) {
@@ -1938,6 +1966,14 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2060,6 +2096,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         value_1: '',
         value_2: ''
       });
+    },
+    reset: function reset() {
+      this.filterCandidates = [];
+      this.addFilter();
+      this.$refs.form.reset();
     },
     fetch: function fetch() {
       var _this = this;
@@ -38170,7 +38211,7 @@ var render = function() {
                 ? _c("v-select", {
                     attrs: {
                       items: _vm.getOperators,
-                      label: "Filter by",
+                      label: "Operator",
                       "item-value": _vm.getOperators.value,
                       "error-messages": _vm.getError(
                         "f." + _vm.index + ".operator"
@@ -38206,11 +38247,11 @@ var render = function() {
             _c(
               "v-menu",
               {
-                ref: "menu",
+                ref: "menu1",
                 attrs: {
                   "close-on-content-click": false,
                   "nudge-right": 40,
-                  "return-value": _vm.date,
+                  "return-value": _vm.date_1.date,
                   lazy: "",
                   transition: "scale-transition",
                   "offset-y": "",
@@ -38219,10 +38260,10 @@ var render = function() {
                 },
                 on: {
                   "update:returnValue": function($event) {
-                    _vm.date = $event
+                    return _vm.$set(_vm.date_1, "date", $event)
                   },
                   "update:return-value": function($event) {
-                    _vm.date = $event
+                    return _vm.$set(_vm.date_1, "date", $event)
                   }
                 },
                 scopedSlots: _vm._u([
@@ -38242,11 +38283,11 @@ var render = function() {
                                 readonly: ""
                               },
                               model: {
-                                value: _vm.date,
+                                value: _vm.date_1.date,
                                 callback: function($$v) {
-                                  _vm.date = $$v
+                                  _vm.$set(_vm.date_1, "date", $$v)
                                 },
-                                expression: "date"
+                                expression: "date_1.date"
                               }
                             },
                             on
@@ -38257,11 +38298,11 @@ var render = function() {
                   }
                 ]),
                 model: {
-                  value: _vm.menu,
+                  value: _vm.date_1.menu,
                   callback: function($$v) {
-                    _vm.menu = $$v
+                    _vm.$set(_vm.date_1, "menu", $$v)
                   },
-                  expression: "menu"
+                  expression: "date_1.menu"
                 }
               },
               [
@@ -38271,11 +38312,11 @@ var render = function() {
                   {
                     attrs: { "no-title": "", scrollable: "" },
                     model: {
-                      value: _vm.date,
+                      value: _vm.date_1.date,
                       callback: function($$v) {
-                        _vm.date = $$v
+                        _vm.$set(_vm.date_1, "date", $$v)
                       },
-                      expression: "date"
+                      expression: "date_1.date"
                     }
                   },
                   [
@@ -38287,7 +38328,7 @@ var render = function() {
                         attrs: { flat: "", color: "primary" },
                         on: {
                           click: function($event) {
-                            _vm.menu = false
+                            _vm.date_1.menu = false
                           }
                         }
                       },
@@ -38300,7 +38341,8 @@ var render = function() {
                         attrs: { flat: "", color: "primary" },
                         on: {
                           click: function($event) {
-                            return _vm.$refs.menu.save(_vm.date)
+                            _vm.$refs.menu1.save(_vm.date_1.date),
+                              _vm.updateValue()
                           }
                         }
                       },
@@ -38333,7 +38375,7 @@ var render = function() {
             this.filter.column
               ? _c("v-text-field", {
                   attrs: {
-                    label: "Regular",
+                    label: "Value",
                     "error-messages": _vm.getError(
                       "f." + _vm.index + ".value_1"
                     ),
@@ -38366,6 +38408,136 @@ var render = function() {
             staticClass: "col"
           },
           [
+            _c(
+              "v-menu",
+              {
+                ref: "menu2",
+                attrs: {
+                  "close-on-content-click": false,
+                  "nudge-right": 40,
+                  "return-value": _vm.date_2.date,
+                  lazy: "",
+                  transition: "scale-transition",
+                  "offset-y": "",
+                  "full-width": "",
+                  "min-width": "290px"
+                },
+                on: {
+                  "update:returnValue": function($event) {
+                    return _vm.$set(_vm.date_2, "date", $event)
+                  },
+                  "update:return-value": function($event) {
+                    return _vm.$set(_vm.date_2, "date", $event)
+                  }
+                },
+                scopedSlots: _vm._u([
+                  {
+                    key: "activator",
+                    fn: function(ref) {
+                      var on = ref.on
+                      return [
+                        _c(
+                          "v-text-field",
+                          _vm._g(
+                            {
+                              attrs: {
+                                label: "Picker in menu",
+                                "prepend-icon": "event",
+                                color: "purple",
+                                readonly: ""
+                              },
+                              model: {
+                                value: _vm.date_2.date,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.date_2, "date", $$v)
+                                },
+                                expression: "date_2.date"
+                              }
+                            },
+                            on
+                          )
+                        )
+                      ]
+                    }
+                  }
+                ]),
+                model: {
+                  value: _vm.date_2.menu,
+                  callback: function($$v) {
+                    _vm.$set(_vm.date_2, "menu", $$v)
+                  },
+                  expression: "date_2.menu"
+                }
+              },
+              [
+                _vm._v(" "),
+                _c(
+                  "v-date-picker",
+                  {
+                    attrs: { "no-title": "", scrollable: "" },
+                    model: {
+                      value: _vm.date_2.date,
+                      callback: function($$v) {
+                        _vm.$set(_vm.date_2, "date", $$v)
+                      },
+                      expression: "date_2.date"
+                    }
+                  },
+                  [
+                    _c("v-spacer"),
+                    _vm._v(" "),
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { flat: "", color: "primary" },
+                        on: {
+                          click: function($event) {
+                            _vm.dateC_2.menu = false
+                          }
+                        }
+                      },
+                      [_vm._v("Cancel")]
+                    ),
+                    _vm._v(" "),
+                    _c(
+                      "v-btn",
+                      {
+                        attrs: { flat: "", color: "primary" },
+                        on: {
+                          click: function($event) {
+                            return _vm.$refs.menu2.save(_vm.date_2.date)
+                          }
+                        }
+                      },
+                      [_vm._v("OK")]
+                    )
+                  ],
+                  1
+                )
+              ],
+              1
+            )
+          ],
+          1
+        ),
+        _vm._v(" "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value:
+                  _vm.filter.operator.component === "double" &&
+                  _vm.filter.column.type !== "datetime",
+                expression:
+                  'filter.operator.component === "double" && filter.column.type !== "datetime"'
+              }
+            ],
+            staticClass: "col"
+          },
+          [
             _c("v-text-field", {
               attrs: {
                 label: "Regular",
@@ -38388,14 +38560,14 @@ var render = function() {
           ? _c(
               "v-btn",
               {
-                attrs: { fab: "", dark: "", small: "", color: "normal" },
+                attrs: { flat: "", fab: "", small: "", color: "error" },
                 on: {
                   click: function($event) {
                     return _vm.deleteFilter()
                   }
                 }
               },
-              [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("remove")])],
+              [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("delete")])],
               1
             )
           : _vm._e()
@@ -38431,71 +38603,113 @@ var render = function() {
     { staticClass: "container" },
     [
       _c(
-        "v-card",
+        "v-form",
+        { ref: "form" },
         [
-          _c("v-card-title", { attrs: { "primary-title": "" } }, [
-            _c(
-              "div",
-              { staticClass: "headline" },
-              [
-                _c(
-                  "v-icon",
-                  {
-                    staticClass: "purple myIcon",
-                    attrs: { medium: "", dark: "" }
-                  },
-                  [_vm._v("search")]
-                ),
-                _vm._v("Employee Search")
-              ],
-              1
-            )
-          ]),
-          _vm._v(" "),
           _c(
-            "div",
-            { staticClass: "card-body" },
+            "v-card",
             [
-              _vm._l(_vm.filterCandidates, function(f, i) {
-                return _c("filter-option", {
-                  key: i,
-                  attrs: {
-                    filterErrors: _vm.errors,
-                    fields: _vm.fields,
-                    filter: f,
-                    index: i
-                  }
-                })
-              }),
+              _c("v-card-title", { attrs: { "primary-title": "" } }, [
+                _c(
+                  "div",
+                  { staticClass: "headline" },
+                  [
+                    _c(
+                      "v-icon",
+                      {
+                        staticClass: "purple myIcon",
+                        attrs: { medium: "", dark: "" }
+                      },
+                      [_vm._v("search")]
+                    ),
+                    _vm._v("Employee Search")
+                  ],
+                  1
+                )
+              ]),
               _vm._v(" "),
               _c(
                 "div",
-                { staticClass: "form-row" },
+                { staticClass: "card-body" },
                 [
-                  _c(
-                    "v-btn",
-                    {
-                      attrs: { fab: "", small: "", dark: "", color: "teal" },
-                      on: { click: _vm.addFilter }
-                    },
-                    [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("add")])],
-                    1
-                  ),
+                  _vm._l(_vm.filterCandidates, function(f, i) {
+                    return _c("filter-option", {
+                      key: i,
+                      attrs: {
+                        filterErrors: _vm.errors,
+                        fields: _vm.fields,
+                        filter: f,
+                        index: i
+                      }
+                    })
+                  }),
                   _vm._v(" "),
                   _c(
-                    "v-btn",
-                    {
-                      attrs: { fab: "", small: "", dark: "", color: "purple" },
-                      on: { click: _vm.update }
-                    },
-                    [_c("v-icon", { attrs: { dark: "" } }, [_vm._v("search")])],
+                    "div",
+                    { staticClass: "form-row" },
+                    [
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            fab: "",
+                            small: "",
+                            dark: "",
+                            color: "teal"
+                          },
+                          on: { click: _vm.addFilter }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [_vm._v("add")])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            fab: "",
+                            small: "",
+                            dark: "",
+                            color: "default"
+                          },
+                          on: { click: _vm.reset }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("cached")
+                          ])
+                        ],
+                        1
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: {
+                            fab: "",
+                            small: "",
+                            dark: "",
+                            color: "purple"
+                          },
+                          on: { click: _vm.update }
+                        },
+                        [
+                          _c("v-icon", { attrs: { dark: "" } }, [
+                            _vm._v("search")
+                          ])
+                        ],
+                        1
+                      )
+                    ],
                     1
                   )
                 ],
-                1
+                2
               )
             ],
-            2
+            1
           )
         ],
         1

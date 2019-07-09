@@ -19,7 +19,7 @@
         <div class='form-group'>
           <v-select
             :items='getOperators'
-            label='Filter by'
+            label='Operator'
             :item-value='getOperators.value'
             @input='setOperator($event)'
             :error-messages='getError(`f.${index}.operator`)' 
@@ -30,14 +30,15 @@
         </div>    
       </div> <!-- End Operator -->
 
+      <!-- Value_1 -->
+
         <div class='col' v-show='filter.column.type === "datetime"'>
           <v-menu
-              
-              ref="menu"
-              v-model="menu"
+              ref="menu1"
+              v-model="date_1.menu"
               :close-on-content-click="false"
               :nudge-right="40"
-              :return-value.sync="date"
+              :return-value.sync="date_1.date"
               lazy
               transition="scale-transition"
               offset-y
@@ -46,7 +47,7 @@
           >
           <template v-slot:activator="{ on }">
             <v-text-field
-                v-model="date"
+                v-model="date_1.date"
                 label="Picker in menu"
                 prepend-icon="event"
                 color='purple'
@@ -54,28 +55,60 @@
                 v-on="on"
             ></v-text-field>
           </template>
-          <v-date-picker v-model="date" no-title scrollable>
+          <v-date-picker v-model="date_1.date" no-title scrollable>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="menu = false">Cancel</v-btn>
-            <v-btn flat color="primary" @click="$refs.menu.save(date)">OK</v-btn>
+            <v-btn flat color="primary" @click="date_1.menu = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="$refs.menu1.save(date_1.date), updateValue()">OK</v-btn>
+            <!-- <v-btn flat color="primary" @click="$refs.menu1.save(date_1.date)">OK</v-btn> -->
           </v-date-picker>
         </v-menu>
-
       </div>
 
-      <!-- Value_1 -->
+      
       <div class='col' v-show='filter.column.type !== "datetime"'>
         <v-text-field
           v-model='filter.value_1' 
-          label='Regular'
+          label='Value'
           :error-messages='getError(`f.${index}.value_1`)'
           color='purple'
           v-if='this.filter.column'
           ></v-text-field>
       </div>
 
+
+        <div class='col' v-show='filter.operator.component === "double"'>
+          <v-menu
+              ref="menu2"
+              v-model="date_2.menu"
+              :close-on-content-click="false"
+              :nudge-right="40"
+              :return-value.sync="date_2.date"
+              lazy
+              transition="scale-transition"
+              offset-y
+              full-width
+              min-width="290px"
+          >
+          <template v-slot:activator="{ on }">
+            <v-text-field
+                v-model="date_2.date"
+                label="Picker in menu"
+                prepend-icon="event"
+                color='purple'
+                readonly
+                v-on="on"
+            ></v-text-field>
+          </template>
+          <v-date-picker v-model="date_2.date" no-title scrollable>
+            <v-spacer></v-spacer>
+            <v-btn flat color="primary" @click="dateC_2.menu = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="$refs.menu2.save(date_2.date)">OK</v-btn>
+          </v-date-picker>
+        </v-menu>
+      </div>
+
       <!-- Value_2 -->
-      <div class="col" v-show='filter.operator.component === "double"'>
+      <div class="col" v-show='filter.operator.component === "double" && filter.column.type !== "datetime"'>
         <v-text-field
           v-model='filter.value_2' 
           label="Regular"
@@ -85,8 +118,8 @@
       </div>
 
 
-      <v-btn fab dark small color="normal" @click='deleteFilter()' v-if='this.filter.column'>
-      <v-icon dark>remove</v-icon>
+      <v-btn flat fab small color="error" @click='deleteFilter()' v-if='this.filter.column'>
+      <v-icon dark>delete</v-icon>
     </v-btn>
 
 
@@ -103,20 +136,28 @@ export default {
 
   data() {
     return {
-      date: '',
-      menu: ''
+      date_1: {
+        date: '',
+        menu: ''
+      },
+        date_2: {
+        date: '',
+        menu: ''
+      }
     }
   },
-
   methods: {
     setColumn(e) {
+      this.resetFilter();
 
       this.fields.forEach((column) => {
         if (column.value === e) { this.filter.column = column }
       });
 
-      console.log(this.filter);
-
+    },
+    updateValue() {
+      this.filter.value_1 = this.date_1.date;
+     
     },
     setOperator(e) {
   
@@ -131,6 +172,15 @@ export default {
       this.$eventHub.$emit('delete-filter', this.index);
 
     }, 
+    resetFilter() {
+
+      this.filter.operator = '';
+      this.filter.column = '';
+      this.filter.value_1 = '';
+      this.filter.value_2 = '';
+
+      
+    },
     availableOperators() {
       return [
           {text: 'contains', value: 'contains', parent: ['string'], component: 'single'},
@@ -142,17 +192,13 @@ export default {
           {text: 'less than', value: 'less_than', parent: ['numeric'], component: 'single'},
           {text: 'greater than', value: 'greater_than', parent: ['numeric'], component: 'single'},
 
-          {text: 'between', value: 'between', parent: ['numeric'], component: 'double'},
+          {text: 'between', value: 'between', parent: ['numeric', 'datetime'], component: 'double'},
           {text: 'not between', value: 'not_between', parent: ['numeric'], component: 'double'},
 
           {text: 'in the past', value: 'in_the_past', parent: ['datetime'], component: 'datetime_1'},
           {text: 'in the next', value: 'in_the_next', parent: ['datetime'], component: 'datetime_1'},
           {text: 'in the peroid', value: 'in_the_peroid', parent: ['datetime'], component: 'datetime_2'},
 
-          {text: 'equal to', value: 'equal_to_count', parent: ['counter'], component: 'single'},
-          {text: 'not equal to', value: 'not_equal_to_count', parent: ['counter'], component: 'single'},
-          {text: 'less than', value: 'less_than_count', parent: ['counter'], component: 'single'},
-          {text: 'greater than', value: 'greater_than_count', parent: ['counter'], component: 'single'},
       ]
     },
     getError(input) {
