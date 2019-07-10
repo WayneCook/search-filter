@@ -10,15 +10,16 @@
         <div class="card-body">
         <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
           <div class="form-row">
-            <v-btn fab small dark color="teal" @click='addFilter'>
+            <v-btn fab small dark color="default" @click='addFilter'>
               <v-icon dark>add</v-icon>
             </v-btn>
+            
 
             <v-btn fab small dark color="default" @click='reset'>
               <v-icon dark>cached</v-icon>
             </v-btn>
 
-            <v-btn fab small dark color="purple" @click='search'>
+            <v-btn fab small dark color="default" @click='search'>
               <v-icon dark>search</v-icon>
             </v-btn>
 
@@ -97,7 +98,7 @@
         selectValue: '',
         searchIsReady: true,
         loading: 'false',
-        url: 'api/customers',
+        url: 'api/employee',
         filterCandidates: [],
         errors: {},
         query: {
@@ -125,6 +126,7 @@
        addFilter() {
         this.filterCandidates.push({
           column: '',
+          data_type: '',
           operator: '',
           value_1: '',
           value_2: ''
@@ -140,6 +142,8 @@
         this.errors = {};
         const filters = this.getFilters();
         const params = { ...filters, ...this.query }
+
+        console.log(filters);
 
         axios.get(this.url, {params: params})
           .then((res) => {
@@ -167,10 +171,10 @@
           this.filterCandidates.forEach((filter, i) => {
             if (filter.column.value) {
               f[`f[${i}][column]`] = filter.column.value
+              f[`f[${i}][data_type]`] = filter.column.type
               f[`f[${i}][operator]`] = filter.operator.value
               f[`f[${i}][value_1]`] = filter.value_1
               f[`f[${i}][value_2]`] = filter.value_2
-              f[`f[${i}][match]`] = this.match
             }
           })
         return f

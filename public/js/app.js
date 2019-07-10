@@ -1933,6 +1933,17 @@ __webpack_require__.r(__webpack_exports__);
         value: 'in_the_peroid',
         parent: ['datetime'],
         component: 'datetime_2'
+      }, // Date operators
+      {
+        text: 'equal to',
+        value: 'where_date',
+        parent: ['datetime'],
+        component: 'single'
+      }, {
+        text: 'before',
+        value: 'date_before',
+        parent: ['datetime'],
+        component: 'single'
       }];
     },
     getError: function getError(input) {
@@ -2046,6 +2057,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['fields'],
@@ -2064,7 +2076,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       selectValue: '',
       searchIsReady: true,
       loading: 'false',
-      url: 'api/customers',
+      url: 'api/employee',
       filterCandidates: [],
       errors: {},
       query: {
@@ -2091,6 +2103,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addFilter: function addFilter() {
       this.filterCandidates.push({
         column: '',
+        data_type: '',
         operator: '',
         value_1: '',
         value_2: ''
@@ -2110,6 +2123,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var params = _objectSpread({}, filters, this.query);
 
+      console.log(filters);
       axios.get(this.url, {
         params: params
       }).then(function (res) {
@@ -2127,16 +2141,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     getFilters: function getFilters() {
-      var _this2 = this;
-
       var f = {};
       this.filterCandidates.forEach(function (filter, i) {
         if (filter.column.value) {
           f["f[".concat(i, "][column]")] = filter.column.value;
+          f["f[".concat(i, "][data_type]")] = filter.column.type;
           f["f[".concat(i, "][operator]")] = filter.operator.value;
           f["f[".concat(i, "][value_1]")] = filter.value_1;
           f["f[".concat(i, "][value_2]")] = filter.value_2;
-          f["f[".concat(i, "][match]")] = _this2.match;
         }
       });
       return f;
@@ -2158,10 +2170,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   },
   mounted: function mounted() {
-    var _this3 = this;
+    var _this2 = this;
 
     this.$eventHub.$on('delete-filter', function (index) {
-      _this3.$delete(_this3.filterCandidates, index);
+      _this2.$delete(_this2.filterCandidates, index);
     });
     this.fetch();
     this.addFilter();
@@ -38654,7 +38666,7 @@ var render = function() {
                             fab: "",
                             small: "",
                             dark: "",
-                            color: "teal"
+                            color: "default"
                           },
                           on: { click: _vm.addFilter }
                         },
@@ -38690,7 +38702,7 @@ var render = function() {
                             fab: "",
                             small: "",
                             dark: "",
-                            color: "purple"
+                            color: "default"
                           },
                           on: { click: _vm.search }
                         },

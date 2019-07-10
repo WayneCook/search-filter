@@ -199,6 +199,11 @@ export default {
           {text: 'in the next', value: 'in_the_next', parent: ['datetime'], component: 'datetime_1'},
           {text: 'in the peroid', value: 'in_the_peroid', parent: ['datetime'], component: 'datetime_2'},
 
+          // Date operators
+          {text: 'equal to', value: 'where_date', parent: ['datetime'], component: 'single'},
+          {text: 'before', value: 'date_before', parent: ['datetime'], component: 'single'},
+
+
       ]
     },
     getError(input) {

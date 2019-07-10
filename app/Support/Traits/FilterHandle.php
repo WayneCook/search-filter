@@ -2,7 +2,6 @@
 
 namespace App\Support\Traits;
 use Illuminate\Validation\ValidationException;
-
 use Illuminate\Support\Facades\Validator;
 
 trait FilterHandle {
@@ -58,7 +57,9 @@ trait FilterHandle {
             'less_than_count',
             'greater_than_count',
             'equal_to_count',
-            'not_equal_to_count'
+            'not_equal_to_count',
+            'where_date',
+            'date_before'
         ]);
     }
 

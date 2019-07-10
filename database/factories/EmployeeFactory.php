@@ -1,10 +1,11 @@
 <?php
 
 
-use App\Customer;
+use App\Employee;
 use Faker\Generator as Faker;
+use Carbon\Carbon;
 
-$factory->define(Customer::class, function (Faker $faker) {
+$factory->define(Employee::class, function (Faker $faker) {
   return [
       'first_name' => $faker->firstName($gender = null),
       'last_name' => $faker->lastName,
@@ -12,6 +13,7 @@ $factory->define(Customer::class, function (Faker $faker) {
       'email' => $faker->email,
       'organization' => $faker->catchPhrase,
       'address' => $faker->address,
+      'start_date' => $faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null),
       'revenue' => rand(100, 10000),
   ];
 });

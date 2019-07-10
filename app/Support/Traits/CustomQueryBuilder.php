@@ -29,18 +29,27 @@ class CustomQueryBuilder {
 
     public function makeFilter()
     {
-        $operator = camel_case($this->filter['operator']);
+        // if ($this->filter['data_type'] === 'datetime') {
+        //     $operator = camel_case($this->filter['operator']).'Date';
+        // } else {
+
+            $operator = camel_case($this->filter['operator']);
+        
         $this->{$operator}();
     }
+    
 
     //Operators
     public function contains()
     {
+
         return $this->query->{$this->match}($this->filter['column'], 'like', '%'.$this->filter['value_1'].'%');
     }
 
     public function equalTo()
     {
+
+
         return $this->query->{$this->match}($this->filter['column'], '=', $this->filter['value_1']);
     }
 
@@ -62,6 +71,19 @@ class CustomQueryBuilder {
     public function lessThan()
     {
         return $this->query->{$this->match}($this->filter['column'], '<', $this->filter['value_1']);
+    }
+
+    //Date query
+    public function whereDate()
+    {
+
+        return $this->query->{$this->match.'Date'}($this->filter['column'], '=', $this->filter['value_1']);
+    }
+
+    public function dateBefore()
+    {
+
+        return $this->query->{$this->match.'Date'}($this->filter['column'], '<', $this->filter['value_1']);
     }
 
 }

@@ -2,24 +2,25 @@
 
 namespace App\Http\Controllers;
 
-use App\Customer;
+use App\Employee;
 use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class EmployeeController extends Controller
 {
 
-    private $customer;
+    private $employee;
 
-    public function __construct(Customer $customer)
+    public function __construct(Employee $employee)
     {
-      $this->customer = $customer;
+      $this->employee = $employee;
     }
 
 
     public function index()
     {
 
-      $tableFields = $this->customer->getTableFields();
+        
+        $tableFields = $this->employee->getTableFields();
 
       return view('welcome', ['tableFields' => $tableFields]);
 

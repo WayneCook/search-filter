@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Employee;
 
 
-class employeeApiController extends Controller
+class EmployeeApiController extends Controller
 {
 
     public function index()
