@@ -2078,6 +2078,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['fields'],
@@ -38639,219 +38640,199 @@ var render = function() {
     { staticClass: "container" },
     [
       _c(
-        "v-form",
-        { ref: "form" },
+        "v-card",
         [
-          _c(
-            "v-card",
-            [
-              _c("v-card-title", { attrs: { "primary-title": "" } }, [
+          _c("v-card-title", { attrs: { "primary-title": "" } }, [
+            _c(
+              "div",
+              { staticClass: "headline" },
+              [
                 _c(
-                  "div",
-                  { staticClass: "headline" },
-                  [
-                    _c(
-                      "v-icon",
-                      {
-                        staticClass: "purple myIcon",
-                        attrs: { medium: "", dark: "" }
-                      },
-                      [_vm._v("search")]
-                    ),
-                    _vm._v("Employee Search")
-                  ],
-                  1
-                )
-              ]),
+                  "v-icon",
+                  {
+                    staticClass: "purple myIcon",
+                    attrs: { medium: "", dark: "" }
+                  },
+                  [_vm._v("search")]
+                ),
+                _vm._v("Employee Search")
+              ],
+              1
+            )
+          ]),
+          _vm._v(" "),
+          _c(
+            "div",
+            { staticClass: "card-body" },
+            [
+              _c(
+                "v-form",
+                { ref: "form" },
+                _vm._l(_vm.filterCandidates, function(f, i) {
+                  return _c("filter-option", {
+                    key: i,
+                    attrs: {
+                      filterErrors: _vm.errors,
+                      fields: _vm.fields,
+                      filter: f,
+                      index: i
+                    }
+                  })
+                }),
+                1
+              ),
+              _vm._v(" "),
+              _c("v-divider"),
               _vm._v(" "),
               _c(
-                "div",
-                { staticClass: "card-body" },
+                "v-container",
+                { attrs: { "grid-list-xs": "", fluid: "", "pa-0": "" } },
                 [
-                  _vm._l(_vm.filterCandidates, function(f, i) {
-                    return _c("filter-option", {
-                      key: i,
-                      attrs: {
-                        filterErrors: _vm.errors,
-                        fields: _vm.fields,
-                        filter: f,
-                        index: i
-                      }
-                    })
-                  }),
-                  _vm._v(" "),
-                  _c("v-divider"),
-                  _vm._v(" "),
                   _c(
-                    "v-container",
-                    { attrs: { "grid-list-xs": "", fluid: "", "pa-0": "" } },
+                    "v-layout",
+                    { attrs: { row: "", "align-center": "", "ma-0": "" } },
                     [
                       _c(
-                        "v-layout",
-                        { attrs: { row: "", "align-center": "", "ma-0": "" } },
+                        "v-flex",
+                        { attrs: { "align-center": "", grow: "", "pa-1": "" } },
                         [
                           _c(
-                            "v-flex",
+                            "div",
                             {
-                              attrs: {
-                                "align-center": "",
-                                grow: "",
-                                "pa-1": ""
-                              }
+                              staticClass: "buttons-container",
+                              attrs: { grow: "", "pa-1": "" }
                             },
                             [
                               _c(
-                                "div",
+                                "v-btn",
                                 {
-                                  staticClass: "buttons-container",
-                                  attrs: { grow: "", "pa-1": "" }
+                                  attrs: {
+                                    round: "",
+                                    small: "",
+                                    light: "",
+                                    color: "normal"
+                                  },
+                                  on: { click: _vm.addFilter }
                                 },
                                 [
                                   _c(
-                                    "v-btn",
+                                    "v-icon",
                                     {
-                                      attrs: {
-                                        round: "",
-                                        small: "",
-                                        light: "",
-                                        color: "normal"
-                                      },
-                                      on: { click: _vm.addFilter }
+                                      attrs: { left: "", dark: "", small: "" }
                                     },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: {
-                                            left: "",
-                                            dark: "",
-                                            small: ""
-                                          }
-                                        },
-                                        [_vm._v("add")]
-                                      ),
-                                      _vm._v(
-                                        "\n                ADD\n              "
-                                      )
-                                    ],
-                                    1
+                                    [_vm._v("add")]
                                   ),
-                                  _vm._v(" "),
+                                  _vm._v(
+                                    "\n                ADD\n              "
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    round: "",
+                                    small: "",
+                                    light: "",
+                                    color: "normal"
+                                  },
+                                  on: { click: _vm.reset }
+                                },
+                                [
                                   _c(
-                                    "v-btn",
+                                    "v-icon",
                                     {
-                                      attrs: {
-                                        round: "",
-                                        small: "",
-                                        light: "",
-                                        color: "normal"
-                                      },
-                                      on: { click: _vm.reset }
+                                      attrs: { left: "", dark: "", small: "" }
                                     },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: {
-                                            left: "",
-                                            dark: "",
-                                            small: ""
-                                          }
-                                        },
-                                        [_vm._v("cached")]
-                                      ),
-                                      _vm._v(
-                                        "\n                RESET\n              "
-                                      )
-                                    ],
-                                    1
+                                    [_vm._v("cached")]
                                   ),
-                                  _vm._v(" "),
+                                  _vm._v(
+                                    "\n                RESET\n              "
+                                  )
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-btn",
+                                {
+                                  attrs: {
+                                    round: "",
+                                    small: "",
+                                    light: "",
+                                    color: "normal"
+                                  },
+                                  on: { click: _vm.search }
+                                },
+                                [
                                   _c(
-                                    "v-btn",
+                                    "v-icon",
                                     {
-                                      attrs: {
-                                        round: "",
-                                        small: "",
-                                        light: "",
-                                        color: "normal"
-                                      },
-                                      on: { click: _vm.search }
+                                      attrs: { left: "", dark: "", small: "" }
                                     },
-                                    [
-                                      _c(
-                                        "v-icon",
-                                        {
-                                          attrs: {
-                                            left: "",
-                                            dark: "",
-                                            small: ""
-                                          }
-                                        },
-                                        [_vm._v("search")]
-                                      ),
-                                      _vm._v(
-                                        "\n                SEARCH\n              "
-                                      )
-                                    ],
-                                    1
+                                    [_vm._v("search")]
+                                  ),
+                                  _vm._v(
+                                    "\n                SEARCH\n              "
                                   )
                                 ],
                                 1
                               )
-                            ]
-                          ),
-                          _vm._v(" "),
+                            ],
+                            1
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-flex",
+                        {
+                          attrs: {
+                            "align-center": "",
+                            row: "",
+                            shrink: "",
+                            "pa-1": "",
+                            "ma-0": ""
+                          }
+                        },
+                        [
                           _c(
-                            "v-flex",
+                            "v-radio-group",
                             {
-                              attrs: {
-                                "align-center": "",
-                                row: "",
-                                shrink: "",
-                                "pa-1": "",
-                                "ma-0": ""
+                              staticClass: "radio-group-container",
+                              attrs: { height: "0px", row: "" },
+                              model: {
+                                value: _vm.query.match,
+                                callback: function($$v) {
+                                  _vm.$set(_vm.query, "match", $$v)
+                                },
+                                expression: "query.match"
                               }
                             },
                             [
-                              _c(
-                                "v-radio-group",
-                                {
-                                  staticClass: "radio-group-container",
-                                  attrs: { height: "0px", row: "" },
-                                  model: {
-                                    value: _vm.query.match,
-                                    callback: function($$v) {
-                                      _vm.$set(_vm.query, "match", $$v)
-                                    },
-                                    expression: "query.match"
-                                  }
-                                },
-                                [
-                                  _c("span", { staticClass: "match-label" }, [
-                                    _vm._v(
-                                      "\n                Match filters: \n                "
-                                    )
-                                  ]),
-                                  _vm._v(" "),
-                                  _c("v-radio", {
-                                    attrs: {
-                                      color: "purple",
-                                      label: "All",
-                                      value: "all"
-                                    }
-                                  }),
-                                  _vm._v(" "),
-                                  _c("v-radio", {
-                                    attrs: {
-                                      color: "purple",
-                                      label: "Any",
-                                      value: "any"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
+                              _c("span", { staticClass: "match-label" }, [
+                                _vm._v(
+                                  "\n                Match filters: \n                "
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c("v-radio", {
+                                attrs: {
+                                  color: "purple",
+                                  label: "All",
+                                  value: "all"
+                                }
+                              }),
+                              _vm._v(" "),
+                              _c("v-radio", {
+                                attrs: {
+                                  color: "purple",
+                                  label: "Any",
+                                  value: "any"
+                                }
+                              })
                             ],
                             1
                           )
@@ -38862,7 +38843,7 @@ var render = function() {
                     1
                   )
                 ],
-                2
+                1
               )
             ],
             1

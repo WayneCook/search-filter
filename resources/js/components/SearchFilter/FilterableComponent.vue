@@ -1,13 +1,14 @@
 <template>
   <div class="container">
 
-    <v-form ref="form">
       <v-card>
         <v-card-title primary-title>
           <div class="headline"><v-icon class="purple myIcon" medium dark>search</v-icon>Employee Search</div>
         </v-card-title>
         <div class="card-body">
+        <v-form ref="form">
           <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
+        </v-form>
           <v-divider></v-divider>
           <v-container grid-list-xs fluid pa-0>
             <v-layout row align-center ma-0>
@@ -51,7 +52,7 @@
           </v-container>
         </div>
       </v-card>
-    </v-form>
+    
 
     <br>
       <v-data-table
