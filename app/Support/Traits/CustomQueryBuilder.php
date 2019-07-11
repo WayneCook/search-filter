@@ -73,7 +73,7 @@ class CustomQueryBuilder {
         return $this->query->{$this->match}($this->filter['column'], '<', $this->filter['value_1']);
     }
 
-    //Date query
+    //Date queries
     public function dateEqual()
     {
 
@@ -95,8 +95,8 @@ class CustomQueryBuilder {
     public function dateBetween()
     {
 
-        return $this->query->{$this->match.'Date'}($this->filter['column'], '<=', $this->filter['value_1'])
-        ->{$this->match.'Date'}($this->filter['column'], '>=', $this->filter['value_2']);
+        return $this->query->{$this->match.'Between'}('start_date', array($this->filter['value_1'], $this->filter['value_2']));
+
     }
 
 }
