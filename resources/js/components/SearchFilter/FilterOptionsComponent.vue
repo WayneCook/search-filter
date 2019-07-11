@@ -158,9 +158,6 @@ export default {
     setDateValue(val, date) {
 
       this.filter[val] = date;
-
-      console.log(this.filter);
-      // this.filter.value_1 = this.date_1.date;
      
     },
     setOperator(e) {

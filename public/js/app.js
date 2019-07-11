@@ -1853,7 +1853,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     setDateValue: function setDateValue(val, date) {
       this.filter[val] = date;
-      console.log(this.filter); // this.filter.value_1 = this.date_1.date;
     },
     setOperator: function setOperator(e) {
       var _this2 = this;
@@ -2125,7 +2124,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     addFilter: function addFilter() {
       this.filterCandidates.push({
         column: '',
-        data_type: '',
         operator: '',
         value_1: '',
         value_2: ''
@@ -2146,7 +2144,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
       var params = _objectSpread({}, filters, this.query);
 
-      console.log(filters);
       axios.get(this.url, {
         params: params
       }).then(function (res) {
@@ -2168,7 +2165,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.filterCandidates.forEach(function (filter, i) {
         if (filter.column.value) {
           f["f[".concat(i, "][column]")] = filter.column.value;
-          f["f[".concat(i, "][data_type]")] = filter.column.type;
           f["f[".concat(i, "][operator]")] = filter.operator.value;
           f["f[".concat(i, "][value_1]")] = filter.value_1;
           f["f[".concat(i, "][value_2]")] = filter.value_2;
@@ -2177,7 +2173,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       return f;
     },
     rowsChange: function rowsChange() {
-      console.log(this.query.limit);
       this.table.pagination.rowsPerPage = this.query.limit;
       this.update();
     },

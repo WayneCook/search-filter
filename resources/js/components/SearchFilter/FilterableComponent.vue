@@ -152,7 +152,6 @@
        addFilter() {
         this.filterCandidates.push({
           column: '',
-          data_type: '',
           operator: '',
           value_1: '',
           value_2: ''
@@ -169,8 +168,6 @@
         this.errors = {};
         const filters = this.getFilters();
         const params = { ...filters, ...this.query }
-
-        console.log(filters);
 
         axios.get(this.url, {params: params})
           .then((res) => {
@@ -198,7 +195,6 @@
           this.filterCandidates.forEach((filter, i) => {
             if (filter.column.value) {
               f[`f[${i}][column]`] = filter.column.value
-              f[`f[${i}][data_type]`] = filter.column.type
               f[`f[${i}][operator]`] = filter.operator.value
               f[`f[${i}][value_1]`] = filter.value_1
               f[`f[${i}][value_2]`] = filter.value_2
@@ -207,7 +203,6 @@
         return f
       },
       rowsChange() {
-        console.log(this.query.limit);
         this.table.pagination.rowsPerPage = this.query.limit;
         this.update();
       },
