@@ -74,7 +74,7 @@ class CustomQueryBuilder {
     }
 
     //Date query
-    public function whereDate()
+    public function dateEqual()
     {
 
         return $this->query->{$this->match.'Date'}($this->filter['column'], '=', $this->filter['value_1']);
@@ -84,6 +84,19 @@ class CustomQueryBuilder {
     {
 
         return $this->query->{$this->match.'Date'}($this->filter['column'], '<', $this->filter['value_1']);
+    }
+
+    public function dateAfter()
+    {
+
+        return $this->query->{$this->match.'Date'}($this->filter['column'], '>', $this->filter['value_1']);
+    }
+
+    public function dateBetween()
+    {
+
+        return $this->query->{$this->match.'Date'}($this->filter['column'], '<=', $this->filter['value_1'])
+        ->{$this->match.'Date'}($this->filter['column'], '>=', $this->filter['value_2']);
     }
 
 }

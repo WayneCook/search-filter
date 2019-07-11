@@ -6,24 +6,49 @@
         <v-card-title primary-title>
           <div class="headline"><v-icon class="purple myIcon" medium dark>search</v-icon>Employee Search</div>
         </v-card-title>
-
         <div class="card-body">
-        <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
-          <div class="form-row">
-            <v-btn fab small dark color="default" @click='addFilter'>
-              <v-icon dark>add</v-icon>
-            </v-btn>
+          <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
+          <v-divider></v-divider>
+          <v-container grid-list-xs fluid pa-0>
+            <v-layout row align-center ma-0>
+              <v-flex align-center grow pa-1>
+
+                <div class='buttons-container' grow pa-1>
+                <v-btn round small light color="normal" @click='addFilter'>
+                  <v-icon left dark small>add</v-icon>
+                  ADD
+                </v-btn>
             
+                <v-btn round small light color="normal" @click='reset'>
+                  <v-icon left dark small>cached</v-icon>
+                  RESET
+                </v-btn>
 
-            <v-btn fab small dark color="default" @click='reset'>
-              <v-icon dark>cached</v-icon>
-            </v-btn>
+                <v-btn round small light color="normal" @click='search'>
+                  <v-icon left dark small>search</v-icon>
+                  SEARCH
+                </v-btn>
+                </div>
 
-            <v-btn fab small dark color="default" @click='search'>
-              <v-icon dark>search</v-icon>
-            </v-btn>
+              </v-flex>
+              <v-flex align-center row shrink pa-1 ma-0>
 
-          </div>
+                <v-radio-group 
+                    v-model="query.match" 
+                    height='0px'
+                    row 
+                    class='radio-group-container'
+                >
+                  <span class='match-label'>
+                  Match filters: 
+                  </span>
+                  <v-radio color='purple' label="All" value="all"></v-radio>
+                  <v-radio color='purple' label="Any" value="any"></v-radio>
+                </v-radio-group>
+                              
+              </v-flex>
+            </v-layout>
+          </v-container>
         </div>
       </v-card>
     </v-form>
@@ -88,6 +113,7 @@
     components: { filterOption },
     data() {
       return {
+        radios: null,
         table: {
           pagination: {
             current: 1,
@@ -136,6 +162,7 @@
          this.filterCandidates = [];
          this.addFilter();
          this.$refs.form.reset();
+         this.query.match = 'all';
        },
        fetch() {
         this.loading = 'purple';
@@ -302,5 +329,16 @@ h4 {
     font-size: 12px!important;
 
 }
+
+
+.matchSelectContainer {
+  width: 40px;
+}
+
+.match-label {
+  margin-right: 10px;
+}
+
+
 
 </style>

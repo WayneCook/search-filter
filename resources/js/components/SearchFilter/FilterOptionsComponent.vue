@@ -1,6 +1,6 @@
 <template>
   <form>
-    <div class="row">
+    <div class="row filterContainer">
       <div class="col-4">
         <div class="form-group">
             <v-select
@@ -48,6 +48,7 @@
           <template v-slot:activator="{ on }">
             <v-text-field
                 v-model="date_1.date"
+                :error-messages="getError(`f.${index}.value_1`)"
                 label="Picker in menu"
                 prepend-icon="event"
                 color='purple'
@@ -58,8 +59,7 @@
           <v-date-picker v-model="date_1.date" no-title scrollable>
             <v-spacer></v-spacer>
             <v-btn flat color="primary" @click="date_1.menu = false">Cancel</v-btn>
-            <v-btn flat color="primary" @click="$refs.menu1.save(date_1.date), updateValue()">OK</v-btn>
-            <!-- <v-btn flat color="primary" @click="$refs.menu1.save(date_1.date)">OK</v-btn> -->
+            <v-btn flat color="primary" @click="$refs.menu1.save(date_1.date), setDateValue('value_1', date_1.date)">OK</v-btn>
           </v-date-picker>
         </v-menu>
       </div>
@@ -88,10 +88,12 @@
               offset-y
               full-width
               min-width="290px"
+              
           >
           <template v-slot:activator="{ on }">
             <v-text-field
                 v-model="date_2.date"
+                 :error-messages="getError(`f.${index}.value_2`)"
                 label="Picker in menu"
                 prepend-icon="event"
                 color='purple'
@@ -101,8 +103,8 @@
           </template>
           <v-date-picker v-model="date_2.date" no-title scrollable>
             <v-spacer></v-spacer>
-            <v-btn flat color="primary" @click="dateC_2.menu = false">Cancel</v-btn>
-            <v-btn flat color="primary" @click="$refs.menu2.save(date_2.date)">OK</v-btn>
+            <v-btn flat color="primary" @click="date_2.menu = false">Cancel</v-btn>
+            <v-btn flat color="primary" @click="$refs.menu2.save(date_2.date), setDateValue('value_2', date_2.date)">OK</v-btn>
           </v-date-picker>
         </v-menu>
       </div>
@@ -117,11 +119,9 @@
         ></v-text-field>
       </div>
 
-
-      <v-btn flat fab small color="error" @click='deleteFilter()' v-if='this.filter.column'>
+      <v-btn flat fab small color="normal" @click='deleteFilter()' v-if='this.filter.column'>
       <v-icon dark>delete</v-icon>
     </v-btn>
-
 
     </div>
   </form>
@@ -155,8 +155,12 @@ export default {
       });
 
     },
-    updateValue() {
-      this.filter.value_1 = this.date_1.date;
+    setDateValue(val, date) {
+
+      this.filter[val] = date;
+
+      console.log(this.filter);
+      // this.filter.value_1 = this.date_1.date;
      
     },
     setOperator(e) {
@@ -179,6 +183,8 @@ export default {
       this.filter.value_1 = '';
       this.filter.value_2 = '';
 
+      // this. filterErrors = '';
+
       
     },
     availableOperators() {
@@ -192,17 +198,14 @@ export default {
           {text: 'less than', value: 'less_than', parent: ['numeric'], component: 'single'},
           {text: 'greater than', value: 'greater_than', parent: ['numeric'], component: 'single'},
 
-          {text: 'between', value: 'between', parent: ['numeric', 'datetime'], component: 'double'},
+          {text: 'between', value: 'between', parent: ['numeric'], component: 'double'},
           {text: 'not between', value: 'not_between', parent: ['numeric'], component: 'double'},
 
-          {text: 'in the past', value: 'in_the_past', parent: ['datetime'], component: 'datetime_1'},
-          {text: 'in the next', value: 'in_the_next', parent: ['datetime'], component: 'datetime_1'},
-          {text: 'in the peroid', value: 'in_the_peroid', parent: ['datetime'], component: 'datetime_2'},
-
           // Date operators
-          {text: 'equal to', value: 'where_date', parent: ['datetime'], component: 'single'},
+          {text: 'equal to', value: 'date_equal', parent: ['datetime'], component: 'single'},
           {text: 'before', value: 'date_before', parent: ['datetime'], component: 'single'},
-
+          {text: 'after', value: 'date_after', parent: ['datetime'], component: 'single'},
+          {text: 'between', value: 'date_between', parent: ['datetime'], component: 'double'},
 
       ]
     },
@@ -234,6 +237,11 @@ export default {
   .v-btn--active, .v-btn:focus, .v-btn:hover {
     border: none;
     outline: none;
+}
+
+.filterContainer {
+  margin-left: 0px;
+  margin-right: 0px;
 }
 
 

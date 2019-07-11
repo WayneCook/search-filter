@@ -1851,8 +1851,9 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
     },
-    updateValue: function updateValue() {
-      this.filter.value_1 = this.date_1.date;
+    setDateValue: function setDateValue(val, date) {
+      this.filter[val] = date;
+      console.log(this.filter); // this.filter.value_1 = this.date_1.date;
     },
     setOperator: function setOperator(e) {
       var _this2 = this;
@@ -1870,7 +1871,7 @@ __webpack_require__.r(__webpack_exports__);
       this.filter.operator = '';
       this.filter.column = '';
       this.filter.value_1 = '';
-      this.filter.value_2 = '';
+      this.filter.value_2 = ''; // this. filterErrors = '';
     },
     availableOperators: function availableOperators() {
       return [{
@@ -1911,32 +1912,17 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         text: 'between',
         value: 'between',
-        parent: ['numeric', 'datetime'],
+        parent: ['numeric'],
         component: 'double'
       }, {
         text: 'not between',
         value: 'not_between',
         parent: ['numeric'],
         component: 'double'
-      }, {
-        text: 'in the past',
-        value: 'in_the_past',
-        parent: ['datetime'],
-        component: 'datetime_1'
-      }, {
-        text: 'in the next',
-        value: 'in_the_next',
-        parent: ['datetime'],
-        component: 'datetime_1'
-      }, {
-        text: 'in the peroid',
-        value: 'in_the_peroid',
-        parent: ['datetime'],
-        component: 'datetime_2'
       }, // Date operators
       {
         text: 'equal to',
-        value: 'where_date',
+        value: 'date_equal',
         parent: ['datetime'],
         component: 'single'
       }, {
@@ -1944,6 +1930,16 @@ __webpack_require__.r(__webpack_exports__);
         value: 'date_before',
         parent: ['datetime'],
         component: 'single'
+      }, {
+        text: 'after',
+        value: 'date_after',
+        parent: ['datetime'],
+        component: 'single'
+      }, {
+        text: 'between',
+        value: 'date_between',
+        parent: ['datetime'],
+        component: 'double'
       }];
     },
     getError: function getError(input) {
@@ -2058,6 +2054,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['fields'],
@@ -2066,6 +2087,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
+      radios: null,
       table: {
         pagination: {
           current: 1,
@@ -2113,6 +2135,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.filterCandidates = [];
       this.addFilter();
       this.$refs.form.reset();
+      this.query.match = 'all';
     },
     fetch: function fetch() {
       var _this = this;
@@ -6658,7 +6681,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\ni.fas.fa-times[data-v-60fdd04b] {\n    font-size: 13px;\n    color: #f44336;\n    margin-right: 8px;\n    margin-right: 8px;\n    margin-top: 7px;\n}\n.v-btn--active[data-v-60fdd04b], .v-btn[data-v-60fdd04b]:focus, .v-btn[data-v-60fdd04b]:hover {\n    border: none;\n    outline: none;\n}\n\n\n\n", ""]);
+exports.push([module.i, "\ni.fas.fa-times[data-v-60fdd04b] {\n    font-size: 13px;\n    color: #f44336;\n    margin-right: 8px;\n    margin-right: 8px;\n    margin-top: 7px;\n}\n.v-btn--active[data-v-60fdd04b], .v-btn[data-v-60fdd04b]:focus, .v-btn[data-v-60fdd04b]:hover {\n    border: none;\n    outline: none;\n}\n.filterContainer[data-v-60fdd04b] {\n  margin-left: 0px;\n  margin-right: 0px;\n}\n\n\n\n", ""]);
 
 // exports
 
@@ -6677,7 +6700,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-7037a547] {\r\n  max-width: 1000px;\r\n  /* background: linear-gradient(45deg, #009688f2, #b51889de); */\n}\n.profileImage[data-v-7037a547] {\r\n  width: 40px;\n}\nh4[data-v-7037a547] {\r\n  margin-bottom: 0px;\r\n  margin-left: 16px;\n}\n.match-options span[data-v-7037a547] {\r\n  margin: 5px;\n}\n.table-card[data-v-7037a547] {\r\n  padding: 20px;\n}\n.table th[data-v-7037a547] {\r\n  border-top: 0px;\n}\n.table tbody td[data-v-7037a547] {\r\n  color: rgb(99, 98, 98);\r\n  font-size: 14px;\n}\n.changePageSection div[data-v-7037a547] {\r\n  margin-right: 5px;\n}\n.form-row[data-v-7037a547] {\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-justify-content: flex-start;\r\n          justify-content: flex-start;\n}\n.v-btn--active[data-v-7037a547], .v-btn[data-v-7037a547]:focus, .v-btn[data-v-7037a547]:hover {\r\n    border: none;\r\n    outline: none;\n}\n.changePageSection[data-v-7037a547] {\r\n  margin-top: 10px;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\n}\n.countSelect[data-v-7037a547] {\r\n\r\n  margin-left: 5px;\n}\n.match-select[data-v-7037a547] {\r\n  display: inline-block;\r\n  width: auto;\r\n  vertical-align: middle;\n}\n.myIcon[data-v-7037a547] {\r\n  padding: 12px 12px;\r\n  border-radius: 4px;\r\n  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(207, 30, 233, 0.4);\r\n  margin-right: 14px;\n}\n.headline[data-v-7037a547] {\r\n    font-size: 26px!important;\r\n    line-height: 32px!important;\r\n    font-weight: 300;\r\n    color: #797679;\n}\n.rowSelectContainer[data-v-7037a547] {\r\n  width: 20px;\n}\n.rowSelector[data-v-7037a547] {\r\n  font-size: 12px;\n}\n.v-subheader[data-v-7037a547] {\r\n\r\n    font-size: 12px!important;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-7037a547] {\r\n  max-width: 1000px;\r\n  /* background: linear-gradient(45deg, #009688f2, #b51889de); */\n}\n.profileImage[data-v-7037a547] {\r\n  width: 40px;\n}\nh4[data-v-7037a547] {\r\n  margin-bottom: 0px;\r\n  margin-left: 16px;\n}\n.match-options span[data-v-7037a547] {\r\n  margin: 5px;\n}\n.table-card[data-v-7037a547] {\r\n  padding: 20px;\n}\n.table th[data-v-7037a547] {\r\n  border-top: 0px;\n}\n.table tbody td[data-v-7037a547] {\r\n  color: rgb(99, 98, 98);\r\n  font-size: 14px;\n}\n.changePageSection div[data-v-7037a547] {\r\n  margin-right: 5px;\n}\n.form-row[data-v-7037a547] {\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-justify-content: flex-start;\r\n          justify-content: flex-start;\n}\n.v-btn--active[data-v-7037a547], .v-btn[data-v-7037a547]:focus, .v-btn[data-v-7037a547]:hover {\r\n    border: none;\r\n    outline: none;\n}\n.changePageSection[data-v-7037a547] {\r\n  margin-top: 10px;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\n}\n.countSelect[data-v-7037a547] {\r\n\r\n  margin-left: 5px;\n}\n.match-select[data-v-7037a547] {\r\n  display: inline-block;\r\n  width: auto;\r\n  vertical-align: middle;\n}\n.myIcon[data-v-7037a547] {\r\n  padding: 12px 12px;\r\n  border-radius: 4px;\r\n  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(207, 30, 233, 0.4);\r\n  margin-right: 14px;\n}\n.headline[data-v-7037a547] {\r\n    font-size: 26px!important;\r\n    line-height: 32px!important;\r\n    font-weight: 300;\r\n    color: #797679;\n}\n.rowSelectContainer[data-v-7037a547] {\r\n  width: 20px;\n}\n.rowSelector[data-v-7037a547] {\r\n  font-size: 12px;\n}\n.v-subheader[data-v-7037a547] {\r\n\r\n    font-size: 12px!important;\n}\n.matchSelectContainer[data-v-7037a547] {\r\n  width: 40px;\n}\n.match-label[data-v-7037a547] {\r\n  margin-right: 10px;\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 
@@ -38187,7 +38210,7 @@ var render = function() {
   return _c("form", [
     _c(
       "div",
-      { staticClass: "row" },
+      { staticClass: "row filterContainer" },
       [
         _c("div", { staticClass: "col-4" }, [
           _c(
@@ -38288,6 +38311,9 @@ var render = function() {
                           _vm._g(
                             {
                               attrs: {
+                                "error-messages": _vm.getError(
+                                  "f." + _vm.index + ".value_1"
+                                ),
                                 label: "Picker in menu",
                                 "prepend-icon": "event",
                                 color: "purple",
@@ -38353,7 +38379,7 @@ var render = function() {
                         on: {
                           click: function($event) {
                             _vm.$refs.menu1.save(_vm.date_1.date),
-                              _vm.updateValue()
+                              _vm.setDateValue("value_1", _vm.date_1.date)
                           }
                         }
                       },
@@ -38452,6 +38478,9 @@ var render = function() {
                           _vm._g(
                             {
                               attrs: {
+                                "error-messages": _vm.getError(
+                                  "f." + _vm.index + ".value_2"
+                                ),
                                 label: "Picker in menu",
                                 "prepend-icon": "event",
                                 color: "purple",
@@ -38503,7 +38532,7 @@ var render = function() {
                         attrs: { flat: "", color: "primary" },
                         on: {
                           click: function($event) {
-                            _vm.dateC_2.menu = false
+                            _vm.date_2.menu = false
                           }
                         }
                       },
@@ -38516,7 +38545,8 @@ var render = function() {
                         attrs: { flat: "", color: "primary" },
                         on: {
                           click: function($event) {
-                            return _vm.$refs.menu2.save(_vm.date_2.date)
+                            _vm.$refs.menu2.save(_vm.date_2.date),
+                              _vm.setDateValue("value_2", _vm.date_2.date)
                           }
                         }
                       },
@@ -38571,7 +38601,7 @@ var render = function() {
           ? _c(
               "v-btn",
               {
-                attrs: { flat: "", fab: "", small: "", color: "error" },
+                attrs: { flat: "", fab: "", small: "", color: "normal" },
                 on: {
                   click: function($event) {
                     return _vm.deleteFilter()
@@ -38655,61 +38685,181 @@ var render = function() {
                     })
                   }),
                   _vm._v(" "),
+                  _c("v-divider"),
+                  _vm._v(" "),
                   _c(
-                    "div",
-                    { staticClass: "form-row" },
+                    "v-container",
+                    { attrs: { "grid-list-xs": "", fluid: "", "pa-0": "" } },
                     [
                       _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            fab: "",
-                            small: "",
-                            dark: "",
-                            color: "default"
-                          },
-                          on: { click: _vm.addFilter }
-                        },
+                        "v-layout",
+                        { attrs: { row: "", "align-center": "", "ma-0": "" } },
                         [
-                          _c("v-icon", { attrs: { dark: "" } }, [_vm._v("add")])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            fab: "",
-                            small: "",
-                            dark: "",
-                            color: "default"
-                          },
-                          on: { click: _vm.reset }
-                        },
-                        [
-                          _c("v-icon", { attrs: { dark: "" } }, [
-                            _vm._v("cached")
-                          ])
-                        ],
-                        1
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: {
-                            fab: "",
-                            small: "",
-                            dark: "",
-                            color: "default"
-                          },
-                          on: { click: _vm.search }
-                        },
-                        [
-                          _c("v-icon", { attrs: { dark: "" } }, [
-                            _vm._v("search")
-                          ])
+                          _c(
+                            "v-flex",
+                            {
+                              attrs: {
+                                "align-center": "",
+                                grow: "",
+                                "pa-1": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "div",
+                                {
+                                  staticClass: "buttons-container",
+                                  attrs: { grow: "", "pa-1": "" }
+                                },
+                                [
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        round: "",
+                                        small: "",
+                                        light: "",
+                                        color: "normal"
+                                      },
+                                      on: { click: _vm.addFilter }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          attrs: {
+                                            left: "",
+                                            dark: "",
+                                            small: ""
+                                          }
+                                        },
+                                        [_vm._v("add")]
+                                      ),
+                                      _vm._v(
+                                        "\n                ADD\n              "
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        round: "",
+                                        small: "",
+                                        light: "",
+                                        color: "normal"
+                                      },
+                                      on: { click: _vm.reset }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          attrs: {
+                                            left: "",
+                                            dark: "",
+                                            small: ""
+                                          }
+                                        },
+                                        [_vm._v("cached")]
+                                      ),
+                                      _vm._v(
+                                        "\n                RESET\n              "
+                                      )
+                                    ],
+                                    1
+                                  ),
+                                  _vm._v(" "),
+                                  _c(
+                                    "v-btn",
+                                    {
+                                      attrs: {
+                                        round: "",
+                                        small: "",
+                                        light: "",
+                                        color: "normal"
+                                      },
+                                      on: { click: _vm.search }
+                                    },
+                                    [
+                                      _c(
+                                        "v-icon",
+                                        {
+                                          attrs: {
+                                            left: "",
+                                            dark: "",
+                                            small: ""
+                                          }
+                                        },
+                                        [_vm._v("search")]
+                                      ),
+                                      _vm._v(
+                                        "\n                SEARCH\n              "
+                                      )
+                                    ],
+                                    1
+                                  )
+                                ],
+                                1
+                              )
+                            ]
+                          ),
+                          _vm._v(" "),
+                          _c(
+                            "v-flex",
+                            {
+                              attrs: {
+                                "align-center": "",
+                                row: "",
+                                shrink: "",
+                                "pa-1": "",
+                                "ma-0": ""
+                              }
+                            },
+                            [
+                              _c(
+                                "v-radio-group",
+                                {
+                                  staticClass: "radio-group-container",
+                                  attrs: { height: "0px", row: "" },
+                                  model: {
+                                    value: _vm.query.match,
+                                    callback: function($$v) {
+                                      _vm.$set(_vm.query, "match", $$v)
+                                    },
+                                    expression: "query.match"
+                                  }
+                                },
+                                [
+                                  _c("span", { staticClass: "match-label" }, [
+                                    _vm._v(
+                                      "\n                Match filters: \n                "
+                                    )
+                                  ]),
+                                  _vm._v(" "),
+                                  _c("v-radio", {
+                                    attrs: {
+                                      color: "purple",
+                                      label: "All",
+                                      value: "all"
+                                    }
+                                  }),
+                                  _vm._v(" "),
+                                  _c("v-radio", {
+                                    attrs: {
+                                      color: "purple",
+                                      label: "Any",
+                                      value: "any"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
                         ],
                         1
                       )

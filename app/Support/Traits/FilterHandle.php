@@ -14,13 +14,13 @@ trait FilterHandle {
             $this->validatefilters();
         }
 
-      return response()->json([
-        'collection' => $this->process($query, request()->all())
-            ->orderBy(
-            request('order_column', 'created_at'),
-            request('order_direction', 'desc')
-          )
-          ->paginate(request('limit', 10))]);
+        return response()->json([
+            'collection' => $this->process($query, request()->all())
+                ->orderBy(
+                request('order_column', 'created_at'),
+                request('order_direction', 'desc')
+            )
+            ->paginate(request('limit', 10))]);
     }
 
     public function process($query, $data)
@@ -58,8 +58,10 @@ trait FilterHandle {
             'greater_than_count',
             'equal_to_count',
             'not_equal_to_count',
-            'where_date',
-            'date_before'
+            'date_equal',
+            'date_before',
+            'date_between',
+            'date_after'
         ]);
     }
 
@@ -71,18 +73,18 @@ trait FilterHandle {
     public function validatefilters()
     {
 
-      $validator = Validator::make(request()->all(), [
-        'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
-        'order_direction' => 'sometimes|required|in:asc,desc',
-        'limit' => 'sometimes|required|integer|min:1',
-        // advanced filter
-        'match' => 'sometimes|required|in:any,all',
-        'f' => 'sometimes|required|array',
-        'f.*.column' => 'required|required|in:'.$this->whiteListColumns(),
-        'f.*.operator' => 'required|required_with:f.*.column|in:'.$this->allowedOperators(),
-        'f.*.value_1' => 'required',
-        'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
-      ])->validate();
+        $validator = Validator::make(request()->all(), [
+            'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
+            'order_direction' => 'sometimes|required|in:asc,desc',
+            'limit' => 'sometimes|required|integer|min:1',
+            // advanced filter
+            'match' => 'sometimes|required|in:any,all',
+            'f' => 'sometimes|required|array',
+            'f.*.column' => 'required|required|in:'.$this->whiteListColumns(),
+            'f.*.operator' => 'required|required_with:f.*.column|in:'.$this->allowedOperators(),
+            'f.*.value_1' => 'required',
+            'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
+        ])->validate();
 
     }
 }
