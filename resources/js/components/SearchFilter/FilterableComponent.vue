@@ -1,39 +1,33 @@
 <template>
   <div class="container">
-
-      <v-card>
+      <v-card class="elevation-2 rounded-corners">  
         <v-card-title primary-title>
-          <div class="headline"><v-icon class="purple myIcon" medium dark>search</v-icon>Employee Search</div>
+          <div class="headline"><v-icon class="purple darken-2 myIcon" large dark>search</v-icon>Employee Search Tool</div>
         </v-card-title>
         <div class="card-body">
-        <v-form ref="form">
-          <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
-        </v-form>
+          <v-form ref="form">
+            <filter-option :filterErrors='errors' :fields='fields' v-bind:key='i' :filter='f' :index='i' v-for='(f, i) in filterCandidates'></filter-option>
+          </v-form>
           <v-divider></v-divider>
           <v-container grid-list-xs fluid pa-0>
             <v-layout row align-center ma-0>
               <v-flex align-center grow pa-1>
-
                 <div class='buttons-container' grow pa-1>
                 <v-btn round small light color="normal" @click='addFilter'>
-                  <v-icon left dark small>add</v-icon>
+                  <v-icon color='purple darken-2' left dark small>add</v-icon>
                   ADD
-                </v-btn>
-            
+                </v-btn>        
                 <v-btn round small light color="normal" @click='reset'>
-                  <v-icon left dark small>cached</v-icon>
+                  <v-icon color='purple darken-2' left dark small>cached</v-icon>
                   RESET
                 </v-btn>
-
-                <v-btn round small light color="normal" @click='search'>
-                  <v-icon left dark small>search</v-icon>
+                <v-btn :disabled='false' round small light color="normal" @click='search'>
+                  <v-icon color='purple darken-2' left dark small>search</v-icon>
                   SEARCH
                 </v-btn>
                 </div>
-
               </v-flex>
               <v-flex align-center row shrink pa-1 ma-0>
-
                 <v-radio-group 
                     v-model="query.match" 
                     height='0px'
@@ -43,39 +37,35 @@
                   <span class='match-label'>
                   Match filters: 
                   </span>
-                  <v-radio color='purple' label="All" value="all"></v-radio>
-                  <v-radio color='purple' label="Any" value="any"></v-radio>
-                </v-radio-group>
-                              
+                  <v-radio color='purple darken-2' label="All" value="all"></v-radio>
+                  <v-radio color='purple darken-2' label="Any" value="any"></v-radio>
+                </v-radio-group>                     
               </v-flex>
             </v-layout>
           </v-container>
         </div>
       </v-card>
-    
-
     <br>
+
+    <v-card class='elevation-2 my-data-table'>
       <v-data-table
         :headers='fields'
         :items='collection.data'
         :pagination.sync='table.pagination'
-        class='elevation-1'
         hide-actions
+        class="custom-datatable"
         :loading='loading'
         align='left'
       >
       <template v-slot:items="props">
-        <td class="text-xs-left" v-for='(header, i) in fields' :key='i'>{{ props.item[header.value] }}</td>
+        <td class="text-xs-left" @click='showModal(props.item)' v-for='(header, i) in fields' :key='i'>{{ props.item[header.value] }}</td>
       </template>
 
       <template v-slot:footer>
-        <td :colspan="fields.length">
-            
+        <td :colspan="fields.length">       
           <v-layout align-center row>
             <v-subheader>Rows per page:</v-subheader>    
-
-            <div class='rowSelectContainer'>
-              
+            <div class='rowSelectContainer'>        
               <v-select
                   v-model='query.limit'
                   class="rowSelector text-xs-center"
@@ -89,29 +79,32 @@
           </v-layout>
         </td>
       </template>
-
     </v-data-table>
+    </v-card>
     <div class="text-xs-center pt-2">
       <v-pagination 
           v-model="query.page" 
           :length="table.pagination.total"
           :total-visible='10'
           circle
-          color='purple'
+          color='purple darken-2'
           @input="onPageChange"
       >
       </v-pagination>
     </div>
+    <profile-modal></profile-modal>
   </div>
 </template>
 
 <script>
+
   import filterOption from './FilterOptionsComponent.vue';
+  import profileModal from './ProfileModalComponent.vue';
 
   export default {
 
     props: ['fields'],
-    components: { filterOption },
+    components: { 'filter-option': filterOption, 'profile-modal': profileModal },
     data() {
       return {
         radios: null,
@@ -142,7 +135,6 @@
       }
     },
     methods: {
-
       update() {
         this.fetch();
       },
@@ -209,6 +201,10 @@
       },
       onPageChange() {
             this.fetch();
+        },
+        showModal(item) {
+          this.$eventHub.$emit('show-modal', item);
+          console.log(item.first_name);
         }
     },
     computed: {
@@ -230,13 +226,9 @@
 
 <style scoped>
 
-
-
 .container {
   max-width: 1000px;
-  /* background: linear-gradient(45deg, #009688f2, #b51889de); */
 }
-
 
 .profileImage {
   width: 40px;
@@ -275,8 +267,8 @@ h4 {
 }
 
 .v-btn--active, .v-btn:focus, .v-btn:hover {
-    border: none;
-    outline: none;
+  border: none;
+  outline: none;
 }
 
 
@@ -287,7 +279,6 @@ h4 {
 }
 
 .countSelect {
-
   margin-left: 5px;
 }
 
@@ -306,10 +297,10 @@ h4 {
 }
 
 .headline {
-    font-size: 26px!important;
-    line-height: 32px!important;
-    font-weight: 300;
-    color: #797679;
+  font-size: 26px!important;
+  line-height: 32px!important;
+  font-weight: 300;
+  color: #797679;
 }
 
 .rowSelectContainer {
@@ -321,11 +312,8 @@ h4 {
 }
 
 .v-subheader {
-
-    font-size: 12px!important;
-
+  font-size: 12px!important;
 }
-
 
 .matchSelectContainer {
   width: 40px;
@@ -333,8 +321,6 @@ h4 {
 
 .match-label {
   margin-right: 10px;
+  color: rgba(0,0,0,.54);
 }
-
-
-
 </style>

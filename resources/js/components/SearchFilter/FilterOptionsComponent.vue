@@ -9,7 +9,7 @@
               :item-value='fields.value'
               @input='setColumn($event)'
               :error-messages='getError(`f.${index}.column`)'
-              color='purple'
+              color='purple darken-2'
             ></v-select> 
         </div>
       </div>
@@ -23,7 +23,7 @@
             :item-value='getOperators.value'
             @input='setOperator($event)'
             :error-messages='getError(`f.${index}.operator`)' 
-            color='purple'
+            color='purple darken-2'
             v-if='this.filter.column'
           ></v-select>
 
@@ -31,7 +31,6 @@
       </div> <!-- End Operator -->
 
       <!-- Value_1 -->
-
         <div class='col' v-show='filter.column.type === "datetime"'>
           <v-menu
               ref="menu1"
@@ -51,7 +50,7 @@
                 :error-messages="getError(`f.${index}.value_1`)"
                 label="Picker in menu"
                 prepend-icon="event"
-                color='purple'
+                color='purple darken-2'
                 readonly
                 v-on="on"
             ></v-text-field>
@@ -64,17 +63,15 @@
         </v-menu>
       </div>
 
-      
       <div class='col' v-show='filter.column.type !== "datetime"'>
         <v-text-field
           v-model='filter.value_1' 
           label='Value'
           :error-messages='getError(`f.${index}.value_1`)'
-          color='purple'
+          color='purple darken-2'
           v-if='this.filter.column'
           ></v-text-field>
       </div>
-
 
         <div class='col' v-show='filter.operator.component === "double"'>
           <v-menu
@@ -87,8 +84,7 @@
               transition="scale-transition"
               offset-y
               full-width
-              min-width="290px"
-              
+              min-width="290px"         
           >
           <template v-slot:activator="{ on }">
             <v-text-field
@@ -96,7 +92,7 @@
                  :error-messages="getError(`f.${index}.value_2`)"
                 label="Picker in menu"
                 prepend-icon="event"
-                color='purple'
+                color='purple darken-2'
                 readonly
                 v-on="on"
             ></v-text-field>
@@ -115,20 +111,17 @@
           v-model='filter.value_2' 
           label="Regular"
           :error-messages="getError(`f.${index}.value_2`)"
-          color='purple'
+          color='purple darken-2'
         ></v-text-field>
       </div>
-
       <v-btn flat fab small color="normal" @click='deleteFilter()' v-if='this.filter.column'>
-      <v-icon dark>delete</v-icon>
-    </v-btn>
-
+       <v-icon dark>delete</v-icon>
+      </v-btn>
     </div>
   </form>
 </template>
 
 <script>
-
 
 export default {
 
@@ -156,9 +149,7 @@ export default {
 
     },
     setDateValue(val, date) {
-
       this.filter[val] = date;
-     
     },
     setOperator(e) {
   
@@ -169,20 +160,13 @@ export default {
       });
     },
     deleteFilter() {
-
       this.$eventHub.$emit('delete-filter', this.index);
-
     }, 
     resetFilter() {
-
       this.filter.operator = '';
       this.filter.column = '';
       this.filter.value_1 = '';
       this.filter.value_2 = '';
-
-      // this. filterErrors = '';
-
-      
     },
     availableOperators() {
       return [
@@ -215,32 +199,29 @@ export default {
       return this.availableOperators().filter((eachOperator) => {
         return (eachOperator['parent'].includes(this.filter.column.type))
       })
-    },
-
+    }
   }
 }
 </script>
 
 <style scoped>
 
-  i.fas.fa-times {
-    font-size: 13px;
-    color: #f44336;
-    margin-right: 8px;
-    margin-right: 8px;
-    margin-top: 7px;
-  }
+i.fas.fa-times {
+  font-size: 13px;
+  color: #f44336;
+  margin-right: 8px;
+  margin-right: 8px;
+  margin-top: 7px;
+}
 
-  .v-btn--active, .v-btn:focus, .v-btn:hover {
-    border: none;
-    outline: none;
+.v-btn--active, .v-btn:focus, .v-btn:hover {
+  border: none;
+  outline: none;
 }
 
 .filterContainer {
   margin-left: 0px;
   margin-right: 0px;
 }
-
-
 
 </style>

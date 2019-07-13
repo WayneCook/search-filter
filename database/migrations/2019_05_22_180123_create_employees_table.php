@@ -20,7 +20,7 @@ class CreateEmployeesTable extends Migration
             $table->string('last_name');
             $table->string('phone_number');
             $table->string('email');
-            $table->string('organization');
+            $table->string('position');
             $table->timestamp('start_date');
             $table->string('address');
             $table->integer('revenue');
@@ -34,6 +34,6 @@ class CreateEmployeesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('customers');
+        Schema::dropIfExists('employees');
     }
 }

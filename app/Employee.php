@@ -13,12 +13,12 @@ class Employee extends Model
 
 
     protected $allowedFilters = [
-        'id' ,'first_name', 'last_name', 'organization', 'email', 'phone_number', 'revenue',
+        'id' ,'first_name', 'last_name', 'position', 'email', 'phone_number', 'revenue',
         'start_date', 'address'
     ];
 
     protected $orderable = [
-        'id', 'first_name', 'organization', 'last_name', 'company', 'email', 'revenue',
+        'id', 'first_name', 'position', 'last_name', 'company', 'email', 'revenue',
         'start_date'
     ];
 
@@ -27,7 +27,7 @@ class Employee extends Model
         [ 'text' => 'First Name', 'value' => 'first_name', 'type' => 'string', 'align' => 'left'],
         [ 'text' => 'Last Name', 'value' => 'last_name', 'type' => 'string', 'align' => 'left'],
         [ 'text' => 'Phone Number', 'value' => 'phone_number', 'type' => 'string', 'align' => 'left'],
-        [ 'text' => 'Organization', 'value' => 'organization', 'type' => 'string', 'align' => 'left'],
+        [ 'text' => 'Position', 'value' => 'position', 'type' => 'string', 'align' => 'left'],
         [ 'text' => 'Revenue', 'value' => 'revenue', 'type' => 'numeric', 'align' => 'left'],
         [ 'text' => 'Start date', 'value' => 'start_date', 'type' => 'datetime', 'align' => 'left'],
     );

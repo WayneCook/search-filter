@@ -5,17 +5,19 @@
  */
 
 
-
 require('./bootstrap');
 import Vuetify from 'vuetify';
 
 window.Vue = require('vue');
 
+
 Vue.component('filterable', require('./components/SearchFilter/FilterableComponent.vue').default);
+Vue.component('profile-modal', require('./components/SearchFilter/ProfileModalComponent.vue').default);
 import 'vuetify/dist/vuetify.min.css';
 
-
 Vue.use(Vuetify);
+
+Vue.config.productionTip = false;
 
 Vue.prototype.$eventHub = new Vue(); // Global event bus
 
@@ -43,5 +45,6 @@ Vue.prototype.$eventHub = new Vue(); // Global event bus
 
 const app = new Vue({
     el: '#app',
+
     
 });

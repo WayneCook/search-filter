@@ -29,11 +29,8 @@ class CustomQueryBuilder {
 
     public function makeFilter()
     {
-        // if ($this->filter['data_type'] === 'datetime') {
-        //     $operator = camel_case($this->filter['operator']).'Date';
-        // } else {
-
-            $operator = camel_case($this->filter['operator']);
+ 
+        $operator = camel_case($this->filter['operator']);
         
         $this->{$operator}();
     }

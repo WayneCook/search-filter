@@ -11,7 +11,7 @@ $factory->define(Employee::class, function (Faker $faker) {
       'last_name' => $faker->lastName,
       'phone_number' => $faker->phoneNumber,
       'email' => $faker->email,
-      'organization' => $faker->catchPhrase,
+      'position' => $faker->jobTitle,
       'address' => $faker->address,
       'start_date' => $faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null),
       'revenue' => rand(100, 10000),
