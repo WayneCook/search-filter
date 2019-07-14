@@ -2086,7 +2086,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   },
   data: function data() {
     return {
-      radios: null,
       table: {
         pagination: {
           current: 1,
@@ -2094,8 +2093,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           rowsPerPage: 5
         }
       },
-      selectValue: '',
-      searchIsReady: true,
       loading: 'false',
       url: 'api/employee',
       filterCandidates: [],

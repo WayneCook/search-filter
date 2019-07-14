@@ -112,7 +112,6 @@
     components: { 'filter-option': filterOption, 'profile-modal': profileModal },
     data() {
       return {
-        radios: null,
         table: {
           pagination: {
             current: 1,
@@ -120,8 +119,6 @@
             rowsPerPage: 5
           }
         },
-        selectValue: '',
-        searchIsReady: true,
         loading: 'false',
         url: 'api/employee',
         filterCandidates: [],
