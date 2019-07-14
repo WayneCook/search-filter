@@ -9,7 +9,7 @@
               :item-value='fields.value'
               @input='setColumn($event)'
               :error-messages='getError(`f.${index}.column`)'
-              color='purple darken-2'
+              color='deep-purple darken-1'
             ></v-select> 
         </div>
       </div>
@@ -23,7 +23,7 @@
             :item-value='getOperators.value'
             @input='setOperator($event)'
             :error-messages='getError(`f.${index}.operator`)' 
-            color='purple darken-2'
+            color='deep-purple darken-1'
             v-if='this.filter.column'
           ></v-select>
 
@@ -50,7 +50,7 @@
                 :error-messages="getError(`f.${index}.value_1`)"
                 label="Picker in menu"
                 prepend-icon="event"
-                color='purple darken-2'
+                color='deep-purple darken-1'
                 readonly
                 v-on="on"
             ></v-text-field>
@@ -68,7 +68,7 @@
           v-model='filter.value_1' 
           label='Value'
           :error-messages='getError(`f.${index}.value_1`)'
-          color='purple darken-2'
+          color='deep-purple darken-1'
           v-if='this.filter.column'
           ></v-text-field>
       </div>
@@ -92,7 +92,7 @@
                  :error-messages="getError(`f.${index}.value_2`)"
                 label="Picker in menu"
                 prepend-icon="event"
-                color='purple darken-2'
+                color='deep-purple darken-1'
                 readonly
                 v-on="on"
             ></v-text-field>
@@ -111,7 +111,7 @@
           v-model='filter.value_2' 
           label="Regular"
           :error-messages="getError(`f.${index}.value_2`)"
-          color='purple darken-2'
+          color='deep-purple darken-1'
         ></v-text-field>
       </div>
       <v-btn flat fab small color="normal" @click='deleteFilter()' v-if='this.filter.column'>
@@ -161,7 +161,13 @@ export default {
     },
     deleteFilter() {
       this.$eventHub.$emit('delete-filter', this.index);
+      this.removeErrors();
     }, 
+    removeErrors() {
+      this.filterErrors[`f.${this.index}.value_1`] = '';
+      this.filterErrors[`f.${this.index}.value_2`] = '';
+      this.filterErrors[`f.${this.index}.operator`] = '';
+    },
     resetFilter() {
       this.filter.operator = '';
       this.filter.column = '';

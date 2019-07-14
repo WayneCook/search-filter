@@ -2,7 +2,7 @@
   <div class="container">
       <v-card class="elevation-2 rounded-corners">  
         <v-card-title primary-title>
-          <div class="headline"><v-icon class="purple darken-2 myIcon" large dark>search</v-icon>Employee Search Tool</div>
+          <div class="headline"><v-icon class="deep-purple darken myIcon" large dark>search</v-icon>Employee Search Tool</div>
         </v-card-title>
         <div class="card-body">
           <v-form ref="form">
@@ -14,15 +14,15 @@
               <v-flex align-center grow pa-1>
                 <div class='buttons-container' grow pa-1>
                 <v-btn round small light color="normal" @click='addFilter'>
-                  <v-icon color='purple darken-2' left dark small>add</v-icon>
+                  <v-icon color='deep-purple darken' left dark small>add</v-icon>
                   ADD
                 </v-btn>        
                 <v-btn round small light color="normal" @click='reset'>
-                  <v-icon color='purple darken-2' left dark small>cached</v-icon>
+                  <v-icon color='deep-purple darken' left dark small>cached</v-icon>
                   RESET
                 </v-btn>
                 <v-btn :disabled='false' round small light color="normal" @click='search'>
-                  <v-icon color='purple darken-2' left dark small>search</v-icon>
+                  <v-icon color='deep-purple darken' left dark small>search</v-icon>
                   SEARCH
                 </v-btn>
                 </div>
@@ -37,8 +37,8 @@
                   <span class='match-label'>
                   Match filters: 
                   </span>
-                  <v-radio color='purple darken-2' label="All" value="all"></v-radio>
-                  <v-radio color='purple darken-2' label="Any" value="any"></v-radio>
+                  <v-radio color='deep-purple darken' label="All" value="all"></v-radio>
+                  <v-radio color='deep-purple darken' label="Any" value="any"></v-radio>
                 </v-radio-group>                     
               </v-flex>
             </v-layout>
@@ -71,7 +71,7 @@
                   class="rowSelector text-xs-center"
                   :items='[5,10,15]'
                   :item-value='[5,10,15]'
-                  color='purple'
+                  color='deep-purple'
                   width='40px'
                   @change='rowsChange()'
               ></v-select> 
@@ -87,7 +87,7 @@
           :length="table.pagination.total"
           :total-visible='10'
           circle
-          color='purple darken-2'
+          color='deep-purple darken'
           @input="onPageChange"
       >
       </v-pagination>
@@ -155,9 +155,10 @@
          this.addFilter();
          this.$refs.form.reset();
          this.query.match = 'all';
+         this.errors = {};
        },
        fetch() {
-        this.loading = 'purple';
+        this.loading = 'deep-purple';
         this.errors = {};
         const filters = this.getFilters();
         const params = { ...filters, ...this.query }
@@ -292,7 +293,7 @@ h4 {
 .myIcon {
   padding: 12px 12px;
   border-radius: 4px;
-  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(207, 30, 233, 0.4);
+  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(103, 58, 183, 0.55);
   margin-right: 14px;
 }
 

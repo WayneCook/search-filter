@@ -17,7 +17,7 @@
                                 <v-progress-circular
                                     v-if='loading'
                                     indeterminate
-                                    color="purple"
+                                    color="deep-purple darken-1"
                                 ></v-progress-circular>
                                 <v-img v-if='!loading' class='employee-avatar' :src="image_url"></v-img>
                         </v-avatar>
@@ -33,13 +33,13 @@
           <v-container>
             <v-layout align-center justify-space-between row>
               <v-flex col>
-                <v-btn round block color="purple darken-2" dark>
+                <v-btn round block color="deep-purple darken-1" dark>
                     <v-icon>email</v-icon>
                     Profile
                 </v-btn>
               </v-flex>
                <v-flex col>
-                <v-btn round block color="purple darken-2" dark>
+                <v-btn round block color="deep-purple darken-1" dark>
                     <v-icon>account_circle</v-icon>
                     Email
                 </v-btn>
@@ -49,7 +49,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="purple darken-2" flat @click="close()">Close</v-btn>  
+          <v-btn color="deep-purple darken-1" flat @click="close()">Close</v-btn>  
         </v-card-actions>
       </v-card>
     </v-dialog>

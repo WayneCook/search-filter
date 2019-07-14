@@ -1859,6 +1859,12 @@ __webpack_require__.r(__webpack_exports__);
     },
     deleteFilter: function deleteFilter() {
       this.$eventHub.$emit('delete-filter', this.index);
+      this.removeErrors();
+    },
+    removeErrors: function removeErrors() {
+      this.filterErrors["f.".concat(this.index, ".value_1")] = '';
+      this.filterErrors["f.".concat(this.index, ".value_2")] = '';
+      this.filterErrors["f.".concat(this.index, ".operator")] = '';
     },
     resetFilter: function resetFilter() {
       this.filter.operator = '';
@@ -2123,11 +2129,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.addFilter();
       this.$refs.form.reset();
       this.query.match = 'all';
+      this.errors = {};
     },
     fetch: function fetch() {
       var _this = this;
 
-      this.loading = 'purple';
+      this.loading = 'deep-purple';
       this.errors = {};
       var filters = this.getFilters();
 
@@ -6799,7 +6806,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.container[data-v-7037a547] {\r\n  max-width: 1000px;\n}\n.profileImage[data-v-7037a547] {\r\n  width: 40px;\n}\nh4[data-v-7037a547] {\r\n  margin-bottom: 0px;\r\n  margin-left: 16px;\n}\n.match-options span[data-v-7037a547] {\r\n  margin: 5px;\n}\n.table-card[data-v-7037a547] {\r\n  padding: 20px;\n}\n.table th[data-v-7037a547] {\r\n  border-top: 0px;\n}\n.table tbody td[data-v-7037a547] {\r\n  color: rgb(99, 98, 98);\r\n  font-size: 14px;\n}\n.changePageSection div[data-v-7037a547] {\r\n  margin-right: 5px;\n}\n.form-row[data-v-7037a547] {\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-justify-content: flex-start;\r\n          justify-content: flex-start;\n}\n.v-btn--active[data-v-7037a547], .v-btn[data-v-7037a547]:focus, .v-btn[data-v-7037a547]:hover {\r\n  border: none;\r\n  outline: none;\n}\n.changePageSection[data-v-7037a547] {\r\n  margin-top: 10px;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\n}\n.countSelect[data-v-7037a547] {\r\n  margin-left: 5px;\n}\n.match-select[data-v-7037a547] {\r\n  display: inline-block;\r\n  width: auto;\r\n  vertical-align: middle;\n}\n.myIcon[data-v-7037a547] {\r\n  padding: 12px 12px;\r\n  border-radius: 4px;\r\n  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(207, 30, 233, 0.4);\r\n  margin-right: 14px;\n}\n.headline[data-v-7037a547] {\r\n  font-size: 26px!important;\r\n  line-height: 32px!important;\r\n  font-weight: 300;\r\n  color: #797679;\n}\n.rowSelectContainer[data-v-7037a547] {\r\n  width: 20px;\n}\n.rowSelector[data-v-7037a547] {\r\n  font-size: 12px;\n}\n.v-subheader[data-v-7037a547] {\r\n  font-size: 12px!important;\n}\n.matchSelectContainer[data-v-7037a547] {\r\n  width: 40px;\n}\n.match-label[data-v-7037a547] {\r\n  margin-right: 10px;\r\n  color: rgba(0,0,0,.54);\n}\r\n", ""]);
+exports.push([module.i, "\n.container[data-v-7037a547] {\r\n  max-width: 1000px;\n}\n.profileImage[data-v-7037a547] {\r\n  width: 40px;\n}\nh4[data-v-7037a547] {\r\n  margin-bottom: 0px;\r\n  margin-left: 16px;\n}\n.match-options span[data-v-7037a547] {\r\n  margin: 5px;\n}\n.table-card[data-v-7037a547] {\r\n  padding: 20px;\n}\n.table th[data-v-7037a547] {\r\n  border-top: 0px;\n}\n.table tbody td[data-v-7037a547] {\r\n  color: rgb(99, 98, 98);\r\n  font-size: 14px;\n}\n.changePageSection div[data-v-7037a547] {\r\n  margin-right: 5px;\n}\n.form-row[data-v-7037a547] {\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-flex-direction: row;\r\n          flex-direction: row;\r\n  -webkit-justify-content: flex-start;\r\n          justify-content: flex-start;\n}\n.v-btn--active[data-v-7037a547], .v-btn[data-v-7037a547]:focus, .v-btn[data-v-7037a547]:hover {\r\n  border: none;\r\n  outline: none;\n}\n.changePageSection[data-v-7037a547] {\r\n  margin-top: 10px;\r\n  display: -webkit-flex;\r\n  display: flex;\r\n  -webkit-justify-content: space-between;\r\n          justify-content: space-between;\n}\n.countSelect[data-v-7037a547] {\r\n  margin-left: 5px;\n}\n.match-select[data-v-7037a547] {\r\n  display: inline-block;\r\n  width: auto;\r\n  vertical-align: middle;\n}\n.myIcon[data-v-7037a547] {\r\n  padding: 12px 12px;\r\n  border-radius: 4px;\r\n  box-shadow: 0 4px 20px 0 rgba(0,0,0,.14), 0 7px 10px -5px rgba(103, 58, 183, 0.55);\r\n  margin-right: 14px;\n}\n.headline[data-v-7037a547] {\r\n  font-size: 26px!important;\r\n  line-height: 32px!important;\r\n  font-weight: 300;\r\n  color: #797679;\n}\n.rowSelectContainer[data-v-7037a547] {\r\n  width: 20px;\n}\n.rowSelector[data-v-7037a547] {\r\n  font-size: 12px;\n}\n.v-subheader[data-v-7037a547] {\r\n  font-size: 12px!important;\n}\n.matchSelectContainer[data-v-7037a547] {\r\n  width: 40px;\n}\n.match-label[data-v-7037a547] {\r\n  margin-right: 10px;\r\n  color: rgba(0,0,0,.54);\n}\r\n", ""]);
 
 // exports
 
@@ -38371,7 +38378,7 @@ var render = function() {
                   items: _vm.fields,
                   "item-value": _vm.fields.value,
                   "error-messages": _vm.getError("f." + _vm.index + ".column"),
-                  color: "purple darken-2"
+                  color: "deep-purple darken-1"
                 },
                 on: {
                   input: function($event) {
@@ -38398,7 +38405,7 @@ var render = function() {
                       "error-messages": _vm.getError(
                         "f." + _vm.index + ".operator"
                       ),
-                      color: "purple darken-2"
+                      color: "deep-purple darken-1"
                     },
                     on: {
                       input: function($event) {
@@ -38464,7 +38471,7 @@ var render = function() {
                                 ),
                                 label: "Picker in menu",
                                 "prepend-icon": "event",
-                                color: "purple darken-2",
+                                color: "deep-purple darken-1",
                                 readonly: ""
                               },
                               model: {
@@ -38564,7 +38571,7 @@ var render = function() {
                     "error-messages": _vm.getError(
                       "f." + _vm.index + ".value_1"
                     ),
-                    color: "purple darken-2"
+                    color: "deep-purple darken-1"
                   },
                   model: {
                     value: _vm.filter.value_1,
@@ -38631,7 +38638,7 @@ var render = function() {
                                 ),
                                 label: "Picker in menu",
                                 "prepend-icon": "event",
-                                color: "purple darken-2",
+                                color: "deep-purple darken-1",
                                 readonly: ""
                               },
                               model: {
@@ -38731,7 +38738,7 @@ var render = function() {
               attrs: {
                 label: "Regular",
                 "error-messages": _vm.getError("f." + _vm.index + ".value_2"),
-                color: "purple darken-2"
+                color: "deep-purple darken-1"
               },
               model: {
                 value: _vm.filter.value_2,
@@ -38803,7 +38810,7 @@ var render = function() {
                 _c(
                   "v-icon",
                   {
-                    staticClass: "purple darken-2 myIcon",
+                    staticClass: "deep-purple darken myIcon",
                     attrs: { large: "", dark: "" }
                   },
                   [_vm._v("search")]
@@ -38872,7 +38879,7 @@ var render = function() {
                                     "v-icon",
                                     {
                                       attrs: {
-                                        color: "purple darken-2",
+                                        color: "deep-purple darken",
                                         left: "",
                                         dark: "",
                                         small: ""
@@ -38903,7 +38910,7 @@ var render = function() {
                                     "v-icon",
                                     {
                                       attrs: {
-                                        color: "purple darken-2",
+                                        color: "deep-purple darken",
                                         left: "",
                                         dark: "",
                                         small: ""
@@ -38935,7 +38942,7 @@ var render = function() {
                                     "v-icon",
                                     {
                                       attrs: {
-                                        color: "purple darken-2",
+                                        color: "deep-purple darken",
                                         left: "",
                                         dark: "",
                                         small: ""
@@ -38989,7 +38996,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-radio", {
                                 attrs: {
-                                  color: "purple darken-2",
+                                  color: "deep-purple darken",
                                   label: "All",
                                   value: "all"
                                 }
@@ -38997,7 +39004,7 @@ var render = function() {
                               _vm._v(" "),
                               _c("v-radio", {
                                 attrs: {
-                                  color: "purple darken-2",
+                                  color: "deep-purple darken",
                                   label: "Any",
                                   value: "any"
                                 }
@@ -39086,7 +39093,7 @@ var render = function() {
                                   attrs: {
                                     items: [5, 10, 15],
                                     "item-value": [5, 10, 15],
-                                    color: "purple",
+                                    color: "deep-purple",
                                     width: "40px"
                                   },
                                   on: {
@@ -39130,7 +39137,7 @@ var render = function() {
               length: _vm.table.pagination.total,
               "total-visible": 10,
               circle: "",
-              color: "purple darken-2"
+              color: "deep-purple darken"
             },
             on: { input: _vm.onPageChange },
             model: {
@@ -39233,7 +39240,7 @@ var render = function() {
                                     ? _c("v-progress-circular", {
                                         attrs: {
                                           indeterminate: "",
-                                          color: "purple"
+                                          color: "deep-purple darken-1"
                                         }
                                       })
                                     : _vm._e(),
@@ -39313,7 +39320,7 @@ var render = function() {
                                   attrs: {
                                     round: "",
                                     block: "",
-                                    color: "purple darken-2",
+                                    color: "deep-purple darken-1",
                                     dark: ""
                                   }
                                 },
@@ -39339,7 +39346,7 @@ var render = function() {
                                   attrs: {
                                     round: "",
                                     block: "",
-                                    color: "purple darken-2",
+                                    color: "deep-purple darken-1",
                                     dark: ""
                                   }
                                 },
@@ -39372,7 +39379,7 @@ var render = function() {
                   _c(
                     "v-btn",
                     {
-                      attrs: { color: "purple darken-2", flat: "" },
+                      attrs: { color: "deep-purple darken-1", flat: "" },
                       on: {
                         click: function($event) {
                           return _vm.close()

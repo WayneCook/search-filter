@@ -73,6 +73,12 @@ trait FilterHandle {
     public function validatefilters()
     {
 
+        $attributes = [
+            'f.*.value_1' => 'value',
+            'f.*.value_2' => 'value',
+            'f.*.operator' => 'operator',
+        ];
+
         $validator = Validator::make(request()->all(), [
             'order_column' => 'sometimes|required|in:'.$this->orderableColumns(),
             'order_direction' => 'sometimes|required|in:asc,desc',
@@ -84,7 +90,7 @@ trait FilterHandle {
             'f.*.operator' => 'required|required_with:f.*.column|in:'.$this->allowedOperators(),
             'f.*.value_1' => 'required',
             'f.*.value_2' => 'required_if:f.*.operator,between,not_between'
-        ])->validate();
+        ],[],$attributes)->validate();   
 
     }
 }
