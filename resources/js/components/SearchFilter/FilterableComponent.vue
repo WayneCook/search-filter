@@ -158,7 +158,7 @@
          this.errors = {};
        },
        fetch() {
-        this.loading = 'deep-purple';
+        this.loading = 'deep-purple darken';
         this.errors = {};
         const filters = this.getFilters();
         const params = { ...filters, ...this.query }
@@ -175,7 +175,6 @@
           .catch((error) => {
 
             if (error.response) {
-              console.log(error.response.data.errors);
               this.errors = error.response.data.errors;
             }
           })
@@ -188,10 +187,10 @@
 
           this.filterCandidates.forEach((filter, i) => {
             if (filter.column.value) {
-              f[`f[${i}][column]`] = filter.column.value
+              f[`f[${i}][column]`]   = filter.column.value
               f[`f[${i}][operator]`] = filter.operator.value
-              f[`f[${i}][value_1]`] = filter.value_1
-              f[`f[${i}][value_2]`] = filter.value_2
+              f[`f[${i}][value_1]`]  = filter.value_1
+              f[`f[${i}][value_2]`]  = filter.value_2
             }
           })
         return f

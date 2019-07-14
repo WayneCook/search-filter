@@ -11,17 +11,15 @@ class Employee extends Model
 
     use FilterHandle;
 
-
     protected $allowedFilters = [
         'id' ,'first_name', 'last_name', 'position', 'email', 'phone_number', 'revenue',
         'start_date', 'address'
     ];
 
     protected $orderable = [
-        'id', 'first_name', 'position', 'last_name', 'company', 'email', 'revenue',
+        'id', 'first_name', 'position', 'last_name', 'company', 'email',
         'start_date'
     ];
-
 
     protected $tableFields = array(
         [ 'text' => 'First Name', 'value' => 'first_name', 'type' => 'string', 'align' => 'left'],

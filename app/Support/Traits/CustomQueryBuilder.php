@@ -29,9 +29,7 @@ class CustomQueryBuilder {
 
     public function makeFilter()
     {
- 
-        $operator = camel_case($this->filter['operator']);
-        
+        $operator = camel_case($this->filter['operator']);  
         $this->{$operator}();
     }
     

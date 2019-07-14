@@ -2134,7 +2134,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     fetch: function fetch() {
       var _this = this;
 
-      this.loading = 'deep-purple';
+      this.loading = 'deep-purple darken';
       this.errors = {};
       var filters = this.getFilters();
 
@@ -2149,7 +2149,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this.query.page = res.data.collection.current_page;
       })["catch"](function (error) {
         if (error.response) {
-          console.log(error.response.data.errors);
           _this.errors = error.response.data.errors;
         }
       })["finally"](function () {
@@ -6825,7 +6824,7 @@ exports = module.exports = __webpack_require__(/*! ../../../../node_modules/css-
 
 
 // module
-exports.push([module.i, "\n.dark-overlay[data-v-4bae4fd5]:after {\r\n\r\n    content: '';\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: hsla(0, 0%, 0%, 0.54);\r\n    position: absolute;\r\n    display: block;\r\n    z-index: -1;\n}\n.employee-avatar[data-v-4bae4fd5] {\r\n    border: 3px solid white;\n}\n.custom-avatar[data-v-4bae4fd5] {\r\n    border: 3px solid white;\n}\np[data-v-4bae4fd5] {\r\n    margin-bottom: 0px;\n}\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "\n.dark-overlay[data-v-4bae4fd5]:after {\r\n  content: '';\r\n  width: 100%;\r\n  height: 100%;\r\n  background-color: hsla(0, 0%, 0%, 0.54);\r\n  position: absolute;\r\n  display: block;\r\n  z-index: -1;\n}\n.employee-avatar[data-v-4bae4fd5] {\r\n  border: 3px solid white;\n}\n.custom-avatar[data-v-4bae4fd5] {\r\n  border: 3px solid white;\n}\np[data-v-4bae4fd5] {\r\n  margin-bottom: 0px;\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -39327,7 +39326,7 @@ var render = function() {
                                 [
                                   _c("v-icon", [_vm._v("email")]),
                                   _vm._v(
-                                    "\n                  Profile\n              "
+                                    "\n                Profile\n              "
                                   )
                                 ],
                                 1
@@ -39353,7 +39352,7 @@ var render = function() {
                                 [
                                   _c("v-icon", [_vm._v("account_circle")]),
                                   _vm._v(
-                                    "\n                  Email\n              "
+                                    "\n                Email\n              "
                                   )
                                 ],
                                 1
@@ -77941,8 +77940,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Wayne Cook\Desktop\filter_clone\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Wayne Cook\Desktop\filter_clone\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\Wayne Cook\Desktop\test_cloning\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Wayne Cook\Desktop\test_cloning\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
