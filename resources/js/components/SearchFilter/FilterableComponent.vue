@@ -1,6 +1,7 @@
 <template>
   <div class="container">
-      <v-card class="elevation-2 rounded-corners">  
+      <!-- Search filter tool -->
+      <v-card class="elevation-2">  
         <v-card-title primary-title>
           <div class="headline"><v-icon class="deep-purple darken myIcon" large dark>search</v-icon>Employee Search Tool</div>
         </v-card-title>
@@ -45,8 +46,9 @@
           </v-container>
         </div>
       </v-card>
+      <!-- End search filter tool -->
     <br>
-
+    <!-- Employee datatable -->
     <v-card class='elevation-2 my-data-table'>
       <v-data-table
         :headers='fields'
@@ -81,6 +83,8 @@
       </template>
     </v-data-table>
     </v-card>
+    <!-- End datatable -->
+    <!-- Pagination -->
     <div class="text-xs-center pt-2">
       <v-pagination 
           v-model="query.page" 
@@ -92,6 +96,7 @@
       >
       </v-pagination>
     </div>
+    <!-- End Pagination -->
     <profile-modal></profile-modal>
   </div>
 </template>
@@ -151,6 +156,7 @@
         })
        },
        reset() {
+         //Reset all filter inputs
          this.filterCandidates = [];
          this.addFilter();
          this.$refs.form.reset();
@@ -184,7 +190,6 @@
        },
        getFilters() {
           const f = {}
-
           this.filterCandidates.forEach((filter, i) => {
             if (filter.column.value) {
               f[`f[${i}][column]`]   = filter.column.value

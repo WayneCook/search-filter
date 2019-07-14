@@ -2071,6 +2071,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2125,6 +2130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       });
     },
     reset: function reset() {
+      //Reset all filter inputs
       this.filterCandidates = [];
       this.addFilter();
       this.$refs.form.reset();
@@ -38799,7 +38805,7 @@ var render = function() {
     [
       _c(
         "v-card",
-        { staticClass: "elevation-2 rounded-corners" },
+        { staticClass: "elevation-2" },
         [
           _c("v-card-title", { attrs: { "primary-title": "" } }, [
             _c(
